@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FaHeart, FaUser, FaCheck } from 'react-icons/fa';
+import { FaHeart, FaUser, FaCheck } from "react-icons/fa";
 
 import heartIcon from "../../public/favorito.png";
 import searchIcon from "../../public/lupa.png";
@@ -52,27 +52,23 @@ const PaymentNavbar: React.FC<PaymentNavbarProps> = ({ currentStep }) => {
         </button>
         <div className="flex items-center relative ml-4">
           <div className="rounded-full bg-white p-1">
-            <Image src={logo} alt="Logo de la marca" className="h-8 w-8 sm:h-10 sm:w-10 rounded-full" />
+            <Image
+              src={logo}
+              alt="Logo de la marca"
+              className="h-8 w-8 sm:h-10 sm:w-10 rounded-full"
+            />
           </div>
           <h1 className="ml-3 text-xl font-bold text-white">Foody's</h1>
-        </div>
-        <div className="hidden sm:flex items-center ml-6 flex-grow">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full rounded-md bg-gray-200 text-gray-800 px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
-            />
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Image src={searchIcon} className="h-5 w-5 text-gray-400" alt="Search icon" />
-            </div>
-          </div>
         </div>
       </div>
       <div className="flex items-center space-x-8">
         <TimeLineStep step={1} currentStep={currentStep} label="Cart" />
         <TimeLineStep step={2} currentStep={currentStep} label="Payment" />
-        <TimeLineStep step={3} currentStep={currentStep} label="Follow your product" />
+        <TimeLineStep
+          step={3}
+          currentStep={currentStep}
+          label="Follow your product"
+        />
       </div>
       <div className="flex items-center space-x-4">
         <button
@@ -92,7 +88,11 @@ const PaymentNavbar: React.FC<PaymentNavbarProps> = ({ currentStep }) => {
             onClick={toggleCartMenu}
           >
             <span className="sr-only">View cart</span>
-            <Image src={cartIcon} className="h-6 w-6 text-gray-400 hover:text-white" alt="Cart icon" />
+            <Image
+              src={cartIcon}
+              className="h-6 w-6 text-gray-400 hover:text-white"
+              alt="Cart icon"
+            />
           </button>
           {cartMenuOpen && (
             <div
@@ -102,16 +102,32 @@ const PaymentNavbar: React.FC<PaymentNavbarProps> = ({ currentStep }) => {
               aria-labelledby="cart-menu-button"
               tabIndex={-1}
             >
-              <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+              <Link
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+              >
                 Item 1
               </Link>
-              <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+              <Link
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+              >
                 Item 2
               </Link>
-              <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+              <Link
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+              >
                 Item 3
               </Link>
-              <Link href="/cart" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+              <Link
+                href="/cart"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+              >
                 <button type="button" className="w-full text-left">
                   Go to cart
                 </button>
@@ -129,7 +145,11 @@ const PaymentNavbar: React.FC<PaymentNavbarProps> = ({ currentStep }) => {
             onClick={toggleProfileMenu}
           >
             <span className="sr-only">Open user menu</span>
-            <Image src={userIcon} className="h-8 w-8 rounded-full" alt="User icon" />
+            <Image
+              src={userIcon}
+              className="h-8 w-8 rounded-full"
+              alt="User icon"
+            />
           </button>
           {profileMenuOpen && (
             <div
@@ -139,13 +159,25 @@ const PaymentNavbar: React.FC<PaymentNavbarProps> = ({ currentStep }) => {
               aria-labelledby="user-menu-button"
               tabIndex={-1}
             >
-              <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+              <Link
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+              >
                 Your Profile
               </Link>
-              <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+              <Link
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+              >
                 Settings
               </Link>
-              <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+              <Link
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+              >
                 Sign out
               </Link>
             </div>
@@ -156,20 +188,26 @@ const PaymentNavbar: React.FC<PaymentNavbarProps> = ({ currentStep }) => {
   );
 };
 
-const TimeLineStep: React.FC<{ step: number; currentStep: number; label: string }> = ({ step, currentStep, label }) => {
+const TimeLineStep: React.FC<{
+  step: number;
+  currentStep: number;
+  label: string;
+}> = ({ step, currentStep, label }) => {
   const isActive = step === currentStep;
   const isCompleted = step < currentStep;
 
   return (
     <div className="flex items-center">
       <div
-        className={`flex items-center justify-center w-8 h-8 rounded-full ${isActive ? 'bg-white text-green-500' : 'border border-white'} ${
-          isCompleted ? 'bg-green-500 text-white' : ''
-        }`}
+        className={`flex items-center justify-center w-8 h-8 rounded-full ${
+          isActive ? "bg-white text-green-500" : "border border-white"
+        } ${isCompleted ? "bg-green-500 text-white" : ""}`}
       >
         {isCompleted ? <FaCheck /> : step}
       </div>
-      <div className={`ml-2 ${isActive ? 'text-white' : 'text-gray-200'}`}>{label}</div>
+      <div className={`ml-2 ${isActive ? "text-white" : "text-gray-200"}`}>
+        {label}
+      </div>
       {step < 3 && <div className="mx-2 h-px w-16 bg-white" />}
     </div>
   );
