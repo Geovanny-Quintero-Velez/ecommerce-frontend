@@ -1,8 +1,8 @@
 import React from 'react';
-import LoginCard from '../../components/LoginCard';
+import RegisterCard from '@/app/components/RegisterCard';
 
 export default function LoginPage() {
   return (
-   <LoginCard />
+   <RegisterCard />
   );
 }
