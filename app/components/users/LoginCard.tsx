@@ -10,11 +10,11 @@ export default function LoginCard() {
           <form className="space-y-4">
             <div>
               <label htmlFor="email" className="block ml-4 font-bold text-sm">Email</label>
-              <input type="email" id="email" className="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Enter your email" />
+              <input type="email" id="email" className="backgroundBackground w-full p-2 rounded mt-1 text-sm" placeholder="Enter your email" />
             </div>
             <div>
               <label htmlFor="password" className="block ml-4 font-bold text-sm">Password</label>
-              <input type="password" id="password" className="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Enter your password" />
+              <input type="password" id="password" className="backgroundBackground w-full p-2 rounded mt-1 text-sm" placeholder="Enter your password" />
               <a href="#" className="text-sm float-right mt-1">Forgot your password?</a>
             </div>
             <button type="submit" className="w-full font-bold text-white p-2 rounded mt-4" style={{ background: 'var(--color-secondary)'}} >Login</button>
