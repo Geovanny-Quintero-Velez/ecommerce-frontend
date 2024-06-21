@@ -8,7 +8,64 @@
   --color-secondary: #70A610;
   --color-background: #F8F9FA;
   --color-text-standard: #343A40;
+  --color-delete-standard: #FC706A;
+  --color-warning-standard: #FFD538;
+  --color-info-standard: #17A2B8;
 }
+
+.backgroundPrimary {
+  background-color: var(--color-primary);
+}
+
+.textPrimary {
+  color: var(--color-primary);
+}
+
+.backgroundSecondary {
+  background-color: var(--color-secondary);
+}
+
+/*Clase backgroundScondary con 10% de opacidad*/
+.backgroundSecondary-10 {
+  background-color: rgba(112, 166, 16, 0.1);
+}
+
+.textSecondary {
+  color: var(--color-secondary);
+}
+
+.backgroundBackground {
+  background-color: var(--color-background);
+}
+
+.textStandard {
+  color: var(--color-text-standard);
+}
+
+.deleteStandard {
+  color: var(--color-delete-standard);
+}
+
+.backgroundDelete {
+  background-color: var(--color-delete-standard);
+}
+
+.warningStandard {
+  color: var(--color-warning-standard);
+}
+
+.backgroundWarning {
+  background-color: var(--color-warning-standard);
+}
+
+.infoStandard {
+  color: var(--color-info-standard);
+}
+
+.backgroundInfo {
+  background-color: var(--color-info-standard);
+}
+
 
 /*
 :root {

@@ -18,14 +18,21 @@ const ProductCard = ({ product }: { product: any }) => {
           {discountPrice ? (
             <>
               <span className="mr-2 line-through text-gray-600">${price}</span>
-              <span className="text-red-500 font-bold">${discountPrice}</span>
+              <div className="deleteStandard font-semibold text-end w-10/12">%{(((price-discountPrice)/price)*100).toFixed(1)}</div>
             </>
           ) : (
-            <span className="text-gray-600 font-bold">${price}</span>
+            <span className="text-transparent font-bold">${price}</span>
           )}
         </div>
         <div className="flex items-center">
-          <div className="flex items-center mr-2">
+        {discountPrice ? (
+            <>
+              <span className="text-xl textStandard font-bold">${discountPrice}</span>
+            </>
+          ) : (
+            <span className="text-xl textStandard font-bold">${price}</span>
+          )}
+          <div className="w-10/12 flex items-center mr-2 justify-end">
             {[...Array(5)].map((_, index) => (
               <div key={index} className="relative">
                 {index < filledStars ? (
@@ -39,8 +46,8 @@ const ProductCard = ({ product }: { product: any }) => {
                 )}
               </div>
             ))}
+            <span className="textStandard">{rating.toFixed(1)}</span>
           </div>
-          <span className="text-gray-600">{rating.toFixed(1)}</span>
         </div>
       </div>
     </div>

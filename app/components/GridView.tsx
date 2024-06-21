@@ -1,29 +1,29 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import ProductCard from './ProductCard'; // Importa el componente de tarjeta de producto
-import productImage from '../../public/producto-stock-estandar.png'
+import React, { useState } from "react";
+import ProductCard from "./ProductCard"; // Importa el componente de tarjeta de producto
+import productImage from "../../public/producto-stock-estandar.png";
 
 // Lista de productos ficticios en formato JSON
 const productList = [
   {
     id: 1,
-    title: 'Producto 1',
+    title: "Producto 1",
     imageUrl: productImage,
-    price: 50,
-    discountPrice: 40,
+    price: 250000,
+    discountPrice: 200000,
     rating: 4.3,
   },
   {
     id: 2,
-    title: 'Producto 2',
+    title: "Producto 2",
     imageUrl: productImage,
-    price: 30,
+    price: 300000,
     rating: 3.7,
   },
   {
     id: 3,
-    title: 'Producto 3',
+    title: "Producto 3",
     imageUrl: productImage,
     price: 25,
     discountPrice: 20,
@@ -31,14 +31,14 @@ const productList = [
   },
   {
     id: 4,
-    title: 'Producto 4',
+    title: "Producto 4",
     imageUrl: productImage,
     price: 70,
     rating: 4.9,
   },
   {
     id: 5,
-    title: 'Producto 5',
+    title: "Producto 5",
     imageUrl: productImage,
     price: 60,
     discountPrice: 50,
@@ -46,14 +46,14 @@ const productList = [
   },
   {
     id: 6,
-    title: 'Producto 6',
+    title: "Producto 6",
     imageUrl: productImage,
     price: 20,
     rating: 1.4,
   },
   {
     id: 7,
-    title: 'Producto 7',
+    title: "Producto 7",
     imageUrl: productImage,
     price: 45,
     discountPrice: 35,
@@ -61,7 +61,7 @@ const productList = [
   },
   {
     id: 8,
-    title: 'Producto 8',
+    title: "Producto 8",
     imageUrl: productImage,
     price: 55,
     rating: 3.8,
@@ -70,11 +70,14 @@ const productList = [
 
 const GridView = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 6;
+  const productsPerPage = 2;
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = productList.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = productList.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -88,18 +91,23 @@ const GridView = () => {
       <div className="mt-4 flex justify-center">
         <nav className="block">
           <ul className="flex pl-0 list-none rounded my-2">
-            {[...Array(Math.ceil(productList.length / productsPerPage))].map((_, index) => (
-              <li key={index}>
-                <button
-                  className={`px-3 py-1 rounded mr-2 ${
-                    currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'
-                  }`}
-                  onClick={() => paginate(index + 1)}
-                >
-                  {index + 1}
-                </button>
-              </li>
-            ))}
+            {[...Array(Math.ceil(productList.length / productsPerPage))].map(
+              (_, index) => (
+                <li key={index}>
+                  <button
+                    style={{
+                      color: currentPage === index + 1 ? "white" : "var(--color-text-standard)",
+                      backgroundColor: currentPage === index + 1 ? "var(--color-secondary)" : "transparent",
+                      border: currentPage !== index + 1 ? "2px solid var(--color-secondary)" : "none",
+                    }}
+                    className={`w-8 h-8 rounded-full mr-2`}
+                    onClick={() => paginate(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              )
+            )}
           </ul>
         </nav>
       </div>

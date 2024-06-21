@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import CartCard from "../components/CartCard"; // Asegúrate de que la ruta sea correcta
+import CartCard from "../components/cart/CartCard"; // Asegúrate de que la ruta sea correcta
 import productImage from "../../public/producto-stock-estandar.png";
-import PaymentNavbar from "../components/PaymentNavbar";
+import PaymentNavbar from "../components/cart/PaymentNavbar";
 
 const initialCart = [
   {
@@ -56,7 +56,7 @@ const CartPage = () => {
   return (
     <div>
       <PaymentNavbar currentStep={3} />
-      <div className="flex p-6 bg-gray-100 min-h-screen">
+      <div className="flex p-6 backgroundBackground min-h-screen">
         <div className="flex-1 overflow-y-auto pr-6">
           <h1 className="text-2xl font-bold mb-6">My shopping cart</h1>
           {cart.map((product) => (
@@ -74,27 +74,27 @@ const CartPage = () => {
         <div className="w-1/3">
           <div className="bg-white p-6 rounded shadow-lg">
             <div className="text-xl font-bold mb-4">Summary</div>
-            <button className="w-full bg-green-500 text-white py-2 rounded mb-4">
+            <button className="w-full backgroundSecondary font-bold text-white py-2 rounded mb-4">
               Proceed to checkout
             </button>
-            <div className="mb-2 flex justify-between">
+            <div className="textStandar mb-2 flex justify-between">
               <span>{cart.length} products</span>
               <span>COP {totalPrice.toFixed(2)}</span>
             </div>
-            <div className="mb-2 flex justify-between">
+            <div className="textStandar mb-2 flex justify-between">
               <span>Service fee</span>
               <span>COP {serviceFee.toFixed(2)}</span>
             </div>
             <hr className="my-2" />
-            <div className="text-xl font-bold mb-4 flex justify-between">
+            <div className="textStandar text-xl font-bold mb-4 flex justify-between">
               <span>Total:</span>
               <span>COP {totalWithFee.toFixed(2)}</span>
             </div>
             <hr className="my-2" />
             <div className="mt-4 text-center">
-              <a href="/" className="text-green-500">
-                Do you want to explore more? Return to the store
-              </a>
+              <p  className="textStandar">
+                Do you want to explore more? <a href="/" className="textSecondary font-bold">Return to the store</a>
+              </p>
             </div>
           </div>
         </div>
