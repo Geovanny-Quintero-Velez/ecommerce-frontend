@@ -72,6 +72,9 @@
   object-fit: cover;
 }
 
+.slick-prev:before, .slick-next:before {
+  display: none;
+}
 /*
 :root {
   --foreground-rgb: 0, 0, 0;

@@ -5,12 +5,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaHeart, FaUser, FaCheck } from "react-icons/fa";
 
-import heartIcon from "../../../public/favorito.png";
-import searchIcon from "../../../public/lupa.png";
-import cartIcon from "../../../public/carrito.png";
-import userIcon from "../../../public/usuario.png";
-import logo from "../../../public/logo.png";
-import menuIcon from "../../../public/menu.png";
+import heartIcon from "../../public/favorito.png";
+import searchIcon from "../../public/lupa.png";
+import cartIcon from "../../public/carrito.png";
+import userIcon from "../../public/usuario.png";
+import logo from "../../public/logo.png";
+import menuIcon from "../../public/menu.png";
 
 interface PaymentNavbarProps {
   currentStep: number;

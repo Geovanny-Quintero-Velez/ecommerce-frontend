@@ -1,6 +1,7 @@
-import GridView from "../components/GridView";
 import Navbar from "../components/Navbar";
+import ProductCarousel from "../components/home/ProductsCarousel";
 import { useFetchProducts } from "../hooks/product/useFetchProducts";
+import GridView from "../components/GridView";
 
 export default async function HomePage() {
   const { fetchProducts } = useFetchProducts();
@@ -11,12 +12,11 @@ export default async function HomePage() {
   return (
     <section>
       <Navbar />
-      <div className="mt-8">
-        <h1 className="text-2xl font-bold mb-4">
-          Bienvenido a Mi Tienda Online
-        </h1>
+      <div className="container mx-auto px-4">
+        <h1 className="text-2xl font-bold mb-4">Bienvenido a Mi Tienda Online</h1>
         <p className="text-lg mb-4">Descubre nuestros productos destacados:</p>
-        <GridView products = {products}/> {/* Renderiza el componente GridView aquí */}
+        <ProductCarousel products={products}/>
+        <ProductCarousel products={products}/>
       </div>
     </section>
   );
