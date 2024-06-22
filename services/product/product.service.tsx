@@ -2,7 +2,7 @@ import { Product } from "@/interfaces/product/product";
 
 export class ProductService {
 
-    private generateUniqueImageUrl(): string  {
+    private generateUniqueImageUrls(): string[]  {
       var randomNumber = Math.floor(Math.random() * 80) + 1;
       var foodNumber = Math.round(Math.random() * 2) + 1;
       var foodName = "";
@@ -11,20 +11,25 @@ export class ProductService {
           foodName = "dosa";
           break;
         case 2:
-          foodName = "burger";
-          break;
-        case 3:
           foodName = "biryani";
           break;
+        case 3:
+          foodName = "burger";
+          break;
       }
-      return `https://foodish-api.com/images/${foodName}/${foodName}${randomNumber}.jpg`;
+      var baseUrl = `https://foodish-api.com/images/${foodName}/${foodName}`;
+      var images = [
+        `${baseUrl}${randomNumber}.jpg`,
+        `${baseUrl}${randomNumber+1}.jpg`,
+        `${baseUrl}${randomNumber+2}.jpg`,]
+      return images;
     }
 
     sampleProducts: Product[] = [
         {
             productid: "1",
             name: "Producto 1",
-            imageurl: this.generateUniqueImageUrl(),
+            imageurls: this.generateUniqueImageUrls(),
             price: 250000,
             discount: 200000,
             rating: 4.3,
@@ -34,7 +39,7 @@ export class ProductService {
           {
             productid: "2",
             name: "Producto 2",
-            imageurl: this.generateUniqueImageUrl(),
+            imageurls: this.generateUniqueImageUrls(),
             price: 300000,
             rating: 3.7,
             stock: 10,
@@ -43,7 +48,7 @@ export class ProductService {
           {
             productid: "3",
             name: "Producto 3",
-            imageurl: this.generateUniqueImageUrl(),
+            imageurls: this.generateUniqueImageUrls(),
             price: 25,
             discount: 20,
             rating: 2.5,
@@ -53,7 +58,7 @@ export class ProductService {
           {
             productid: "4",
             name: "Producto 4",
-            imageurl: this.generateUniqueImageUrl(),
+            imageurls: this.generateUniqueImageUrls(),
             price: 70,
             rating: 4.9,
             stock: 10,
@@ -62,7 +67,7 @@ export class ProductService {
           {
             productid: "5",
             name: "Producto 5",
-            imageurl: this.generateUniqueImageUrl(),
+            imageurls: this.generateUniqueImageUrls(),
             price: 60,
             discount: 50,
             rating: 3.2,
@@ -72,7 +77,7 @@ export class ProductService {
           {
             productid: "6",
             name: "Producto 6",
-            imageurl: this.generateUniqueImageUrl(),
+            imageurls: this.generateUniqueImageUrls(),
             price: 20,
             rating: 1.4,
             stock: 10,
@@ -81,7 +86,7 @@ export class ProductService {
           {
             productid: "7",
             name: "Producto 7",
-            imageurl: this.generateUniqueImageUrl(),
+            imageurls: this.generateUniqueImageUrls(),
             price: 45,
             discount: 35,
             rating: 4.6,
@@ -91,7 +96,7 @@ export class ProductService {
           {
             productid: "8",
             name: "Producto 8",
-            imageurl: this.generateUniqueImageUrl(),
+            imageurls: this.generateUniqueImageUrls(),
             price: 55,
             rating: 3.8,
             stock: 10,

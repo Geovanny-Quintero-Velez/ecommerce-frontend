@@ -1,12 +1,12 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../public/logo.png";
-import logout from "../../public/logout.png";
-import user from "../../public/usuario.png";
-import cart from "../../public/carrito.png";
-import category from "../../public/category.png";
-import order from "../../public/order.png";
+import logo from "@/public/logo.png";
+import logout from "@/public/logout.png";
+import user from "@/public/usuario.png";
+import cart from "@/public/carrito.png";
+import category from "@/public/category.png";
+import order from "@/public/order.png";
 
 export default function SidebarAdmin() {
   return (

@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-  const { imageurl, name, price, discount, rating } = product;
+  const { imageurls, name, price, discount, rating } = product;
 
   // Calcula las estrellas rellenadas y contorneadas según el rating decimal
   const filledStars = Math.floor(rating);
@@ -18,7 +18,7 @@ const ProductCard = ({ product }: Props) => {
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <img 
       className="w-full fixed-image" // Aplica la clase CSS
-      src={imageurl || ""} 
+      src={imageurls ? imageurls[0] : ""} 
       alt={name} 
       decoding="sync"
       fetchPriority="high"

@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import CartCard from "../../components/cart/CartCard"; // Asegúrate de que la ruta sea correcta
 import productImage from "../../public/producto-stock-estandar.png";
-import PaymentNavbar from "../../components/cart/PaymentNavbar";
+import PaymentTimeLine from "../../components/cart/PaymentTimeline";
+import Navbar from "@/components/general/navbar/Navbar";
 
 const initialCart = [
   {
@@ -53,9 +54,14 @@ const CartPage = () => {
   const serviceFee = totalPrice * 0.02;
   const totalWithFee = totalPrice + serviceFee;
 
+  const customSection = {
+    sectionName: "PaymentTimeline",
+    section: <PaymentTimeLine currentStep={2} />,
+  };
+
   return (
     <div>
-      <PaymentNavbar currentStep={3} />
+      <Navbar customSection={customSection}/>
       <div className="flex p-6 backgroundBackground min-h-screen">
         <div className="flex-1 overflow-y-auto pr-6">
           <h1 className="text-2xl font-bold mb-6">My shopping cart</h1>

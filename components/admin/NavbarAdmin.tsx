@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import user from "../../public/usuario.png";
+import user from "@/public/usuario.png";
 
 export default function NavbarAdmin() {
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);

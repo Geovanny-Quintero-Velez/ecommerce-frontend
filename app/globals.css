@@ -75,6 +75,10 @@
 .slick-prev:before, .slick-next:before {
   display: none;
 }
+
+.placeholderPrimary::placeholder { 
+  color: var(--color-primary);
+} 
 /*
 :root {
   --foreground-rgb: 0, 0, 0;

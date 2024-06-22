@@ -9,7 +9,7 @@ interface Props {
 
 
 const CarouselProductCard = ({ product, handleProductClick }: Props) => {
-    const { imageurl, name, price, discount, rating } = product;
+    const { imageurls, name, price, discount, rating } = product;
           const filledStars = Math.floor(rating);
           const hasHalfStar = rating % 1 !== 0;
 
@@ -17,7 +17,7 @@ const CarouselProductCard = ({ product, handleProductClick }: Props) => {
             <div key={product.productid} className="p-2">
               <div className="hover:cursor-pointer border rounded-lg overflow-hidden shadow-lg" onClick={() => handleProductClick(product.productid)}>
                 <Image
-                  src={imageurl || ""}
+                  src={imageurls ? imageurls[0] : ""}
                   alt={name}
                   width={300}
                   height={200}

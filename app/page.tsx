@@ -1,7 +1,6 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../components/general/navbar/Navbar";
 import ProductCarousel from "../components/home/ProductsCarousel";
 import { useFetchProducts } from "../hooks/product/useFetchProducts";
-import GridView from "../components/GridView";
 
 export default async function HomePage() {
   const { fetchProducts } = useFetchProducts();
