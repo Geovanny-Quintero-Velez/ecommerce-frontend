@@ -1,5 +1,5 @@
-import GridView from "./components/GridView";
-import Navbar from "./components/Navbar";
+import GridView from "../components/GridView";
+import Navbar from "../components/Navbar";
 
 export default function HomePage() {
   return (

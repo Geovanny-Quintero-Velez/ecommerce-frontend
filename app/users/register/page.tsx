@@ -1,5 +1,5 @@
 import React from 'react';
-import RegisterCard from '@/app/components/users/RegisterCard';
+import RegisterCard from '@/components/users/RegisterCard';
 
 export default function LoginPage() {
   return (

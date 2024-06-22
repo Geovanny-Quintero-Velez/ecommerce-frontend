@@ -12,34 +12,34 @@ export default function RegisterCard() {
           <div className="flex flex-col lg:flex-row lg:space-x-4">
             <div className="w-full lg:w-1/2">
               <label htmlFor="name" className="ml-4 block font-bold text-sm">Name</label>
-              <input type="text" id="name" className="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Type your name" />
+              <input type="text" id="name" className="w-full p-2 border border-gray-300 rounded mt-1 text-sm" placeholder="Type your name" />
             </div>
             <div className="w-full lg:w-1/2">
               <label htmlFor="last-name" className="ml-4 block font-bold text-sm">Last name</label>
-              <input type="text" id="last-name" className="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Type your last name" />
+              <input type="text" id="last-name" className="w-full p-2 border border-gray-300 rounded mt-1 text-sm" placeholder="Type your last name" />
             </div>
           </div>
           <div className="flex flex-col lg:flex-row lg:space-x-4">
             <div className="w-full lg:w-1/2">
               <label htmlFor="username" className="ml-4 block font-bold text-sm">Username</label>
-              <input type="text" id="username" className="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Create your username" />
+              <input type="text" id="username" className="w-full p-2 border border-gray-300 rounded mt-1 text-sm" placeholder="Create your username" />
             </div>
             <div className="w-full lg:w-1/2">
               <label htmlFor="birthdate" className="ml-4 block font-bold text-sm">Birthdate</label>
-              <input type="text" id="birthdate" className="w-full p-2 border border-gray-300 rounded mt-1" placeholder="(MM/DD/YY)" />
+              <input type="text" id="birthdate" className="w-full p-2 border border-gray-300 rounded mt-1 text-sm" placeholder="(MM/DD/YY)" />
             </div>
           </div>
           <div>
             <label htmlFor="email" className="ml-4 block font-bold text-sm">Email</label>
-            <input type="email" id="email" className="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Enter your email" />
+            <input type="email" id="email" className="w-full p-2 border border-gray-300 rounded mt-1 text-sm" placeholder="Enter your email" />
           </div>
           <div>
             <label htmlFor="password" className="ml-4 block font-bold text-sm">Password</label>
-            <input type="password" id="password" className="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Enter your password" />
+            <input type="password" id="password" className="w-full p-2 border border-gray-300 rounded mt-1 text-sm" placeholder="Enter your password" />
           </div>
           <div>
             <label htmlFor="repeat-password" className="ml-4 block font-bold text-sm">Repeat Password</label>
-            <input type="password" id="repeat-password" className="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Repeat your password" />
+            <input type="password" id="repeat-password" className="w-full p-2 border border-gray-300 rounded mt-1 text-sm" placeholder="Repeat your password" />
           </div>
           <button type="submit" className="w-full font-bold text-white p-2 rounded mt-4" style={{ background: 'var(--color-secondary)' }}>Register now</button>
         </form>

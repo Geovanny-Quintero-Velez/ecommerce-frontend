@@ -6,12 +6,12 @@ import Link from "next/link"; // Importa Link desde Next.js
 import { useState } from "react";
 
 // Importa tus imágenes para los íconos aquí
-import heartIcon from "../../public/favorito.png";
-import searchIcon from "../../public/lupa.png";
-import cartIcon from "../../public/carrito.png";
-import userIcon from "../../public/usuario.png";
-import logo from "../../public/logo.png"; // Nueva imagen para el logo de la marca
-import menuIcon from "../../public/menu.png"; // Nueva imagen para el ícono del menú móvil
+import heartIcon from "../public/favorito.png";
+import searchIcon from "../public/lupa.png";
+import cartIcon from "../public/carrito.png";
+import userIcon from "../public/usuario.png";
+import logo from "../public/logo.png"; // Nueva imagen para el logo de la marca
+import menuIcon from "../public/menu.png"; // Nueva imagen para el ícono del menú móvil
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);

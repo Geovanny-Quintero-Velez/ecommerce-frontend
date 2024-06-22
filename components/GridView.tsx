@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import ProductCard from "./ProductCard"; // Importa el componente de tarjeta de producto
-import productImage from "../../public/producto-stock-estandar.png";
+import productImage from "../public/producto-stock-estandar.png";
 
 // Lista de productos ficticios en formato JSON
 const productList = [

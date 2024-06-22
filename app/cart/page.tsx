@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import CartCard from "../components/cart/CartCard"; // Asegúrate de que la ruta sea correcta
+import CartCard from "../../components/cart/CartCard"; // Asegúrate de que la ruta sea correcta
 import productImage from "../../public/producto-stock-estandar.png";
-import PaymentNavbar from "../components/cart/PaymentNavbar";
+import PaymentNavbar from "../../components/cart/PaymentNavbar";
 
 const initialCart = [
   {
