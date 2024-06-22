@@ -2,6 +2,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useContext } from 'react';
 import { usePathname } from "next/navigation";
+import { FaRegUser } from "react-icons/fa";
+import { MdOutlineExitToApp } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
 
 
 function NavbarSkeleton() {
@@ -51,14 +54,9 @@ function NavbarSecondaryItem() {
         }
     };
 
-    const handleProfileClick = () => {
-        setMenuOpen(false);
-        router.push("/profile");
-    };
-
     return (
         <div className="hidden md:flex items-center space-x-1">
-            {/*currentUser*/ true ? (
+            {/*currentUser*/ false ? (
                 <div className="relative">
                     <button
                         onClick={() => setMenuOpen(!menuOpen)}
@@ -69,31 +67,34 @@ function NavbarSecondaryItem() {
                     </button>
                     {menuOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg py-2 z-50">
-                            <button
-                                onClick={handleProfileClick}
+                            <Link
+                                href="/profile"
                                 className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center"
                             >
-                                <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A10.947 10.947 0 0112 15c2.044 0 3.947.618 5.521 1.804m-2.896-3.397A3 3 0 1015 9m0 0a3 3 0 00-3 3m3-3a3 3 0 00-3 3" />
-                                </svg>
-                                Perfil
-                            </button>
+                                <FaRegUser className="mr-5"/>
+                                Profile
+                            </Link>
+                            <Link
+                                href="/settings"
+                                className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center"
+                            >
+                                <IoSettingsOutline className="mr-5"/>
+                                Settings
+                            </Link>
                             <button
                                 onClick={handleLogout}
-                                className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center"
+                                className="block w-full text-left px-4 py-2 textDelete hover:bg-gray-100 flex items-center"
                             >
-                                <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                                Salir
+                                <MdOutlineExitToApp className="mr-5"/>
+                                Logout
                             </button>
                         </div>
                     )}
                 </div>
             ) : (
                 <>
-                    <Link href="/login" className="py-2 px-3 bg-blue-500 text-white rounded hover:bg-blue-600">Ingresa</Link>
-                    <Link href="/register" className="py-2 px-3 bg-gray-500 text-white rounded hover:bg-gray-600">Crea tu cuenta</Link>
+                    <Link href="/users/login" className="py-2 px-2 bg-white textSecondary rounded border border-white hover:bg-gray-100 text-sm font-bold shadow-xl">Login</Link>
+                    <Link href="/users/register" className="py-2 px-2 text-white rounded border border-white hover:bg-green-600 text-sm font-bold shadow-xl">Register</Link>
                 </>
             )}
         </div>

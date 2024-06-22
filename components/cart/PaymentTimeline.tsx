@@ -16,7 +16,7 @@ function PaymentTimeline({currentStep}: Props) {
         return (
           <div className="flex items-center text-white">
             <div
-              className={`flex items-center justify-center w-8 h-8 rounded-full font-medium ${
+              className={`flex items-center justify-center min-w-8 min-h-8 w-8 h-8 rounded-full font-medium ${
                 isActive ? "bg-white textPrimary" : "border-2 border-white"
               } ${isCompleted ? "border-2 border-white text-white" : ""}`}
             >
@@ -31,15 +31,13 @@ function PaymentTimeline({currentStep}: Props) {
       };
 
     return (
-        <div className="flex items-center space-x-8">
-        <TimeLineStep step={1} currentStep={currentStep} label="Cart" />
-        <TimeLineStep step={2} currentStep={currentStep} label="Payment" />
-        <TimeLineStep
-          step={3}
-          currentStep={currentStep}
-          label="Follow your product"
-        />
+      <div className="hidden md:flex items-center space-x-1">
+          <TimeLineStep step={1} currentStep={currentStep} label="Cart" />
+          <TimeLineStep step={2} currentStep={currentStep} label="Payment" />
+          <TimeLineStep step={3} currentStep={currentStep} label="Follow your product"/>
+        
       </div>
+        
     );
     }
 

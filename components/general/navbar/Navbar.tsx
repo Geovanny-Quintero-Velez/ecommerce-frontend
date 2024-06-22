@@ -24,13 +24,13 @@ const navPrimaryItems =  [
   },
   {
     path: '/cart',
-    title: 'Cart Section',
+    title: 'Cart',
     defaultIcon: <IoCartOutline className='text-3xl'/>,
     selectedIcon: <IoCart className='text-3xl'/>,
   },
   {
     path: '/wishlist',
-    title: 'Wish List Section',
+    title: 'Wish List',
     defaultIcon: <IoHeartOutline className='text-3xl'/>,
     selectedIcon: <IoHeart className='text-3xl'/>,
   },
@@ -80,7 +80,7 @@ function Navbar( {customSection}: Props ) {
                   <Image
                     src={logo}
                     alt="Logo de la marca"
-                    className="h-8 w-8 sm:h-10 sm:w-10 rounded-full"
+                    className="min-w-10 min-h-10 h-8 w-8 sm:h-10 sm:w-10 rounded-full"
                   />
                 </div>
                 <h1 className="ml-3 text-xl font-bold text-white">Foody's</h1>
@@ -119,7 +119,7 @@ function Navbar( {customSection}: Props ) {
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button className="mobile-menu-button">
-              <svg className="w-6 h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
               </svg>
             </button>
@@ -132,28 +132,28 @@ function Navbar( {customSection}: Props ) {
         {navPrimaryItems.map(item => (
           <MobileMenuItem key={item.path} {...item} />
         ))}
-        {/*currentUser*/ true ? (
+        {/*currentUser*/ false ? (
           <>       
             <Link href="/profile" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">
-              Perfil
+              Profile
             </Link>
             <button
               onClick={() => {
                 //logout();
                 router.push("/");
               }}
-              className="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-200"
+              className="block w-full text-left py-2 px-4 text-sm textDelete font-semibold hover:bg-gray-200"
             >
-              Salir
+              Logout
             </button>
           </> 
         ) : (
           <>       
             <Link href="/login" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">
-              Inicia sesión
+              Login
             </Link>
             <Link href="/register" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">
-              Regístrate
+              Register now
             </Link>
           </>
         )}

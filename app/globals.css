@@ -7,10 +7,10 @@
   --color-primary: #27884D;
   --color-secondary: #70A610;
   --color-background: #F8F9FA;
-  --color-text-standard: #343A40;
-  --color-delete-standard: #FC706A;
-  --color-warning-standard: #FFD538;
-  --color-info-standard: #17A2B8;
+  --color-standard: #343A40;
+  --color-delete: #FC706A;
+  --color-warning: #FFD538;
+  --color-info: #17A2B8;
 }
 
 .backgroundPrimary {
@@ -39,31 +39,31 @@
 }
 
 .textStandard {
-  color: var(--color-text-standard);
+  color: var(--color-standard);
 }
 
-.deleteStandard {
-  color: var(--color-delete-standard);
+.textDelete {
+  color: var(--color-delete);
 }
 
 .backgroundDelete {
-  background-color: var(--color-delete-standard);
+  background-color: var(--color-delete);
 }
 
 .warningStandard {
-  color: var(--color-warning-standard);
+  color: var(--color-warning);
 }
 
 .backgroundWarning {
-  background-color: var(--color-warning-standard);
+  background-color: var(--color-warning);
 }
 
 .infoStandard {
-  color: var(--color-info-standard);
+  color: var(--color-info);
 }
 
 .backgroundInfo {
-  background-color: var(--color-info-standard);
+  background-color: var(--color-info);
 }
 
 .fixed-image {

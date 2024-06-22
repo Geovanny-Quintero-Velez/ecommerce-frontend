@@ -56,7 +56,7 @@ const CartPage = () => {
 
   const customSection = {
     sectionName: "PaymentTimeline",
-    section: <PaymentTimeLine currentStep={2} />,
+    section: <PaymentTimeLine currentStep={1} />,
   };
 
   return (
