@@ -66,6 +66,11 @@
   background-color: var(--color-info-standard);
 }
 
+.fixed-image {
+  width: 100vh;
+  height: 50vh;
+  object-fit: cover;
+}
 
 /*
 :root {

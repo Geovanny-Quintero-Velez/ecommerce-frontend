@@ -1,9 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa';
+import { Product } from '@/interfaces/product/product';
 
-const ProductCard = ({ product }: { product: any }) => {
-  const { imageUrl, title, price, discountPrice, rating } = product;
+interface Props {
+  product: Product
+}
+
+const ProductCard = ({ product }: Props) => {
+  const { imageurl, name, price, discount, rating } = product;
 
   // Calcula las estrellas rellenadas y contorneadas según el rating decimal
   const filledStars = Math.floor(rating);
@@ -11,23 +16,29 @@ const ProductCard = ({ product }: { product: any }) => {
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
-      <Image className="w-full" src={imageUrl} alt={title} width={300} height={300} />
+      <img 
+      className="w-full fixed-image" // Aplica la clase CSS
+      src={imageurl || ""} 
+      alt={name} 
+      decoding="sync"
+      fetchPriority="high"
+    />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{title}</div>
+        <div className="font-bold text-xl mb-2">{name}</div>
         <div className="flex items-center mb-4">
-          {discountPrice ? (
+          {discount ? (
             <>
               <span className="mr-2 line-through text-gray-600">${price}</span>
-              <div className="deleteStandard font-semibold text-end w-10/12">%{(((price-discountPrice)/price)*100).toFixed(1)}</div>
+              <div className="deleteStandard font-semibold text-end w-10/12">%{(((price-discount)/price)*100).toFixed(1)}</div>
             </>
           ) : (
             <span className="text-transparent font-bold">${price}</span>
           )}
         </div>
         <div className="flex items-center">
-        {discountPrice ? (
+        {discount ? (
             <>
-              <span className="text-xl textStandard font-bold">${discountPrice}</span>
+              <span className="text-xl textStandard font-bold">${discount}</span>
             </>
           ) : (
             <span className="text-xl textStandard font-bold">${price}</span>

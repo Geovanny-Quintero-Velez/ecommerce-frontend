@@ -1,7 +1,13 @@
 import GridView from "../components/GridView";
 import Navbar from "../components/Navbar";
+import { useFetchProducts } from "../hooks/product/useFetchProducts";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { fetchProducts } = useFetchProducts();
+  const products = await fetchProducts();
+
+  if (!products) return <p>Products couldn't be loaded correctly</p>
+
   return (
     <section>
       <Navbar />
@@ -10,7 +16,7 @@ export default function HomePage() {
           Bienvenido a Mi Tienda Online
         </h1>
         <p className="text-lg mb-4">Descubre nuestros productos destacados:</p>
-        <GridView /> {/* Renderiza el componente GridView aquí */}
+        <GridView products = {products}/> {/* Renderiza el componente GridView aquí */}
       </div>
     </section>
   );
