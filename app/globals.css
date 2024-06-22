@@ -41,3 +41,20 @@ body {
   }
 }
 */
+
+th, td{
+  padding: 0.5rem 0 0.5rem 1rem;
+  width: 5rem;
+}
+
+th {
+  text-align: left;
+  background-color: #fff;
+  color: black;
+}
+
+td{
+  max-width: 5rem;
+  white-space: nowrap;
+  overflow-x: auto;
+}
