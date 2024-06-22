@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 // Importa los módulos necesarios
 import Image from "next/image";
@@ -6,12 +6,12 @@ import Link from "next/link"; // Importa Link desde Next.js
 import { useState } from "react";
 
 // Importa tus imágenes para los íconos aquí
-import heartIcon from "../../public/favorito.png";
-import searchIcon from "../../public/lupa.png";
-import cartIcon from "../../public/carrito.png";
-import userIcon from "../../public/usuario.png";
-import logo from "../../public/logo.png"; // Nueva imagen para el logo de la marca
-import menuIcon from "../../public/menu.png"; // Nueva imagen para el ícono del menú móvil
+import heartIcon from "../public/favorito.png";
+import searchIcon from "../public/lupa.png";
+import cartIcon from "../public/carrito.png";
+import userIcon from "../public/usuario.png";
+import logo from "../public/logo.png"; // Nueva imagen para el logo de la marca
+import menuIcon from "../public/menu.png"; // Nueva imagen para el ícono del menú móvil
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,14 +37,14 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-green-800">
+    <nav style={{ background: "var(--color-primary)" }}>
       <div className="max-w-full px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-around">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button */}
             <button
               type="button"
-              className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="relative inline-flex items-center justify-center rounded-md p-2 text-white  focus:outline-none"
               aria-controls="mobile-menu"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen(!menuOpen)}
@@ -73,11 +73,11 @@ export default function Navbar() {
             </div>
             {/* Espacio adicional para ajustar la posición de los elementos */}
             <div className="ml-6 hidden sm:flex items-center flex-grow">
-              <div className="relative">
+              <div className="relative ml-5 w-8/12">
                 <input
                   type="text"
                   placeholder="Search"
-                  className="w-full rounded-md bg-gray-200 text-gray-800 px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="w-full rounded-full bg-gray-200 text-gray-800 px-5 py-2 pl-10 focus:outline-none"
                 />
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Image
@@ -103,7 +103,7 @@ export default function Navbar() {
               <div>
                 <button
                   type="button"
-                  className="relative flex rounded-full bg-transparent text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="relative flex rounded-full bg-transparent text-sm focus:outline-none"
                   id="cart-menu-button"
                   aria-expanded={cartMenuOpen}
                   aria-haspopup="true"
@@ -112,14 +112,14 @@ export default function Navbar() {
                   <span className="sr-only">View cart</span>
                   <Image
                     src={cartIcon}
-                    className="h-6 w-6 text-gray-400 hover:text-white"
+                    className="h-6 w-6"
                     alt="Cart icon"
                   />
                 </button>
               </div>
               {cartMenuOpen && (
                 <div
-                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="cart-menu-button"
@@ -127,28 +127,32 @@ export default function Navbar() {
                 >
                   <Link
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
+                    style={{ color: "var(--color-text-standard)"}}
+                    className="block px-4 py-2 text-sm "
                     role="menuitem"
                   >
                     Item 1
                   </Link>
                   <Link
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
+                    style={{ color: "var(--color-text-standard)"}}
+                    className="block px-4 py-2 text-sm "
                     role="menuitem"
                   >
                     Item 2
                   </Link>
                   <Link
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
+                    style={{ color: "var(--color-text-standard)"}}
+                    className="block px-4 py-2 text-sm"
                     role="menuitem"
                   >
                     Item 3
                   </Link>
                   <Link
                     href="/cart"
-                    className="block px-4 py-2 text-sm text-gray-700"
+                    style={{ color: "var(--color-text-standard)"}}
+                    className="block px-4 py-2 text-sm"
                     role="menuitem"
                   >
                     <button type="button" className="w-full text-left">
@@ -164,7 +168,7 @@ export default function Navbar() {
               <div>
                 <button
                   type="button"
-                  className="relative flex rounded-full bg-transparent text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="relative flex rounded-full bg-transparent text-sm focus:outline-none"
                   id="user-menu-button"
                   aria-expanded={profileMenuOpen}
                   aria-haspopup="true"
@@ -180,7 +184,7 @@ export default function Navbar() {
               </div>
               {profileMenuOpen && (
                 <div
-                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  className="absolute right-0 z-10 mt-2 w-48 bg-withe origin-top-right bg-white rounded-md py-1 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="user-menu-button"
@@ -188,21 +192,24 @@ export default function Navbar() {
                 >
                   <Link
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
+                    style={{ color: "var(--color-text-standard)"}}
+                    className="block px-4 py-2 text-sm "
                     role="menuitem"
                   >
                     Your Profile
                   </Link>
                   <Link
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
+                    style={{ color: "var(--color-text-standard)"}}
+                    className="block px-4 py-2 text-sm "
                     role="menuitem"
                   >
                     Settings
                   </Link>
                   <Link
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
+                    style={{ color: "var(--color-text-standard)"}}
+                    className="block px-4 py-2 text-sm "
                     role="menuitem"
                   >
                     Sign out
@@ -218,43 +225,18 @@ export default function Navbar() {
       {menuOpen && (
         <div className="sm:hidden" id="mobile-menu">
           <div className="space-y-1 px-2 pb-3 pt-2">
-            <Link
-              href="#"
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              aria-current="page"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="#"
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-            >
-              Team
-            </Link>
-            <Link
-              href="#"
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-            >
-              Projects
-            </Link>
-            <Link
-              href="#"
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-            >
-              Calendar
-            </Link>
             <div className="mt-3 relative">
               <input
                 type="text"
                 placeholder="Search"
-                className="w-full rounded-md bg-gray-200 text-gray-800 px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                style={{
+                  color: "var(--color-text-standard)",
+                  background: "var(--color-background)",
+                }}
+                className="w-full rounded-full py-2 pl-10 focus:outline-none "
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Image
-                  src={searchIcon}
-                  className="h-5 w-5 text-gray-400"
-                  alt="Search icon"
-                />
+                <Image src={searchIcon} className="h-5 w-5" alt="Search icon" />
               </div>
             </div>
           </div>
