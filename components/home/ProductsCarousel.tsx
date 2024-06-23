@@ -12,7 +12,7 @@ interface Props {
 }
 
 const ProductCarousel = ({ products }: Props) => {
-  // Componente para el botón "next"
+
 const NextArrow = ({onClick, currentSlide, slideCount}: any) => {
   const isLastSlide = currentSlide + settings.slidesToShow>= slideCount;
 
@@ -27,7 +27,7 @@ const NextArrow = ({onClick, currentSlide, slideCount}: any) => {
   );
 };
 
-// Componente para el botón "prev"
+
 const PrevArrow = ({onClick, currentSlide }: any) => {
   const isFirstSlide = currentSlide <= 0;
 

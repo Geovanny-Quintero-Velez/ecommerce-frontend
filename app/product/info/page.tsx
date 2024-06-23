@@ -1,9 +1,62 @@
-export default async function HomePage() {
+// app/product/[id]/page.js
+"use client"
+
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Navbar from '@/components/general/navbar/Navbar';
+import CommentsSection from '@/components/product/CommentsSection';
+import PurchaseSection from '@/components/product/PurchaseSection';
+import ProductDetails from '@/components/product/ProductDetails';
+import { useFetchProducts } from "@/hooks/product/useFetchProducts";
+import { useFetchReviews } from '@/hooks/review/useFetchReviews';
+import { Product } from '@/interfaces/product/product';
+import { Review } from '@/interfaces/review/review';
+import ProductSkeleton from '@/components/product/skeleton/ProductSkeleton';
+
+
+export default function ProductInfo() {
+  const searchParams = useSearchParams();
+  const productId = searchParams.get("productid") ?? '1';
+  const [product, setProduct] = useState<Product | null>(null);
+  const [reviews, setReviews] = useState<Review[] | null>(null);
+
+  useEffect(() => {
+    async function fetchProduct() {
+      const { fetchProductById } = useFetchProducts();
+      const fetchedProduct = await fetchProductById(productId);
+      setProduct(fetchedProduct);
+    }
+
+    fetchProduct();
+  }, [productId]);
+
+  useEffect(() => {
+    async function fetchReviews() {
+      const { fetchReviewsByProductId } = useFetchReviews();
+      const fetchedReviews = await fetchReviewsByProductId(productId);
+      setReviews(fetchedReviews)
+    }
+
+    fetchReviews();
+  }, [productId]);
+
   return (
     <section>
-      <div className="container mx-auto px-4">
-        <h1 className="text-2xl font-bold mb-4">Bienvenido a Mi Tienda Online</h1>
-        <p className="text-lg mb-4">Descubre nuestros productos destacados:</p>
+      <Navbar />
+      <div className="container mx-auto p-4">
+        {(product && reviews)? (
+          <>
+            <div className="lg:flex lg:space-x-4">
+              <ProductDetails product={product} />
+              <PurchaseSection />
+            </div>
+            <CommentsSection reviews={reviews}/>
+          </>
+        ) : (
+          <>
+            <ProductSkeleton />
+          </>
+        )}
       </div>
     </section>
   );

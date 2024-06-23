@@ -35,6 +35,7 @@ export class ProductService {
             rating: 4.3,
             stock: 10,
             createdat: new Date(),
+            reviewscount: 3
           },
           {
             productid: "2",
@@ -44,6 +45,7 @@ export class ProductService {
             rating: 3.7,
             stock: 10,
             createdat: new Date(),
+            reviewscount: 2
           },
           {
             productid: "3",
@@ -106,5 +108,9 @@ export class ProductService {
     
     public async getProducts(): Promise<Product[]> {
         return this.sampleProducts;
+    }
+
+    public async getProductById(productId: string): Promise<Product | undefined> {
+        return this.sampleProducts.find(product => product.productid === productId);
     }
 }

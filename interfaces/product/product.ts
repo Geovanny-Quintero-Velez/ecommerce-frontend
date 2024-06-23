@@ -1,3 +1,4 @@
+//This interface is a DTO that contains different fields from its entity
 export interface Product {
     productid: string;
     name: string;
@@ -6,6 +7,7 @@ export interface Product {
     price: number;
     stock: number;
     rating: number;
+    reviewscount?: number;
     discount?: number;
     createdat: Date;
     deletedat?: Date;
