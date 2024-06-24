@@ -1,11 +1,11 @@
 "use client"
 import React from 'react';
 import Slider from 'react-slick';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { Product } from '@/interfaces/product/product';
 import CarouselProductCard from './CarouselProductCard';
 import { useRouter } from "next/navigation";
+import {IoHome} from 'react-icons/io5';
 
 interface Props {
   products: Product[];
@@ -19,10 +19,10 @@ const NextArrow = ({onClick, currentSlide, slideCount}: any) => {
   return (
     <div
       className={`next-arrow absolute top-1/2 right-2 transform -translate-y-1/2 cursor-pointer z-20 textPrimary p-2 rounded-full flex items-center justify-center shadow-xl ${isLastSlide ? 'hidden' : ''}`}
-      style={{ width: "60px", height: "60px", background: "#fff"}}
+      style={{ width: "60px", height: "60px", background: "#fff", marginRight: "-25px"}}
       onClick={onClick}
     >
-      <FontAwesomeIcon icon={faChevronRight} size="2x" />
+      <FaChevronRight style={{ fontSize: '2.25rem', marginRight: '-5px'  }}/>
     </div>
   );
 };
@@ -30,26 +30,25 @@ const NextArrow = ({onClick, currentSlide, slideCount}: any) => {
 
 const PrevArrow = ({onClick, currentSlide }: any) => {
   const isFirstSlide = currentSlide <= 0;
-
   return (
     <div 
       className={`prev-arrow absolute top-1/2 left-2 transform -translate-y-1/2 cursor-pointer z-20 textPrimary p-2 rounded-full flex items-center justify-center shadow-xl ${isFirstSlide ? 'hidden' : ''}`}
-      style={{ width: "60px", height: "60px", background: "#fff"}}
+      style={{ width: "60px", height: "60px", background: "#fff", marginLeft: "-25px" }}
       onClick={onClick}
     >
-      <FontAwesomeIcon icon={faChevronLeft} size="2x" />
+      <FaChevronLeft style={{ fontSize: '2.25rem', marginLeft: '-5px'  }} />
     </div>
   );
 };
 
   const settings = {
-    dots: false,  // Desactivar los puntos
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
-    nextArrow: <NextArrow />,  // Componente para el botón "next"
-    prevArrow: <PrevArrow />,  // Componente para el botón "prev"
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />, 
     responsive: [
       {
         breakpoint: 1024,
