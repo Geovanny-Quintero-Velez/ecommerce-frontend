@@ -25,7 +25,7 @@ const CartPage = () => {
     isClient ?
     <div>
       <Navbar customSection={customSection}/>
-      <div className="flex p-6 backgroundBackground min-h-screen">
+      <div className="flex-col md:flex-row flex p-6 backgroundBackground min-h-screen">
         <div className="flex-1 overflow-y-auto pr-6">
           <h1 className="text-2xl font-bold mb-6 textStandard">Delicious choices...</h1>
           {cart.map((product) => (
@@ -36,9 +36,7 @@ const CartPage = () => {
             />
           ))}
         </div>
-        <div className="w-1/3">
         <CartSummaryComponent />
-        </div>
       </div>
     </div> :
     null

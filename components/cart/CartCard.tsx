@@ -3,73 +3,80 @@ import Image from "next/image";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useCart } from '@/context/CartContext';
 
-const QuantityPicker = ({ id, quantity }: { id: string; quantity: number; }) => {
+const QuantityPicker = ({ id, quantity } : { id: string; quantity: number; }) => {
   const { increaseQuantity, decreaseQuantity } = useCart();
 
   return (
-    <div className="flex items-center ml-4">
-      <button className="px-2 py-1 font-black" onClick={() => decreaseQuantity(id)}>
+    <div className="flex items-center">
+      <button
+        className="px-2 py-1 font-black bg-red-500 text-white rounded transition duration-200 hover:bg-red-600"
+        onClick={() => decreaseQuantity(id)}
+      >
         -
       </button>
-      <span className="px-3 py-1 border border-gray-300 rounded">
+      <span className="px-3 py-1 mx-2 border border-gray-300 rounded">
         {quantity}
       </span>
-      <button className="px-2 py-1 font-black" onClick={() => increaseQuantity(id)}>
+      <button
+        className="px-2 py-1 font-black bg-green-500 text-white rounded transition duration-200 hover:bg-green-600"
+        onClick={() => increaseQuantity(id)}
+      >
         +
       </button>
     </div>
   );
 };
 
-const CartCard = (
-  { product, removeProduct, }: { product: any; removeProduct: (id: string) => void; }
-  ) => {
-  
+const CartCard = ({ product, removeProduct } : { product: any; removeProduct: (id: string) => void; }) => {
   const {
     id,
     name,
-    price,    
+    price,
     quantity,
     imageUrl,
     description,
     category,
-    discountPrice
+    discountPrice,
   } = product;
 
   return (
-    <div className="flex p-4 backgroundSecondary-10 rounded-lg mb-4 shadow-lg">
-      <Image
-        className="w-36 h-48 object-cover rounded"
-        src={imageUrl}
-        alt={name}
-        width={36}
-        height={48}
-      />
-      <div className="flex-1 ml-4 flex flex-col justify-between">
+    <div className="flex flex-col md:flex-row p-4 backgroundSecondary-10 rounded-lg mb-4 shadow-lg">
+      <div className="w-full md:w-36 h-48 md:h-auto relative">
+        <Image
+          className="w-full h-full object-cover rounded-lg"
+          src={imageUrl}
+          alt={name}
+          layout="fill"
+        />
+      </div>
+      <div className="flex-1 ml-0 md:ml-4 flex flex-col justify-between mt-4 md:mt-0">
         <div className="flex justify-between items-start">
           <div>
-            <div className="font-bold textStandard text-2xl mb-1">{name}</div>
-            <div className="text-gray-600 mb-2">{description}</div>
+            <h2 className="font-bold text-2xl text-gray-800 mb-1">{name}</h2>
+            <p className="text-gray-600 mb-2">{description}</p>
+            <p className="text-gray-500">{category}</p>
           </div>
-          <button className="ml-4" onClick={() => removeProduct(id)}>
-            <FaRegTrashAlt className="deleteStandard" />
+          <button
+            className="ml-4 text-red-500 hover:text-red-600 transition duration-200"
+            onClick={() => removeProduct(id)}
+          >
+            <FaRegTrashAlt className="w-6 h-6" />
           </button>
         </div>
         <div className="flex items-center justify-between mt-4">
-          <span className="text-gray-500 mr-4">{category}</span>
           <QuantityPicker id={id} quantity={quantity} />
-          <div className="flex justify-end w-4/5">
+          <div className="flex flex-col items-end">
             {discountPrice ? (
               <>
-                <span className="mr-2 line-through text-gray-600">
+                <span className="text-gray-600 line-through">
                   COP {price.toFixed(2)}
                 </span>
-                <span className="textStandard text-lg font-bold">
+                <span className="text-lg font-bold text-green-600">
                   COP {discountPrice.toFixed(2)}
                 </span>
               </>
             ) : (
-              <span className="textStandard text-lg font-bold">
+              <span className="text-lg font-bold text-gray-800">
                 COP {price.toFixed(2)}
               </span>
             )}

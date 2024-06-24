@@ -8,10 +8,10 @@ export default function CartSummaryComponent() {
   const serviceFee = 20000; // Puedes ajustar este valor según sea necesario
 
   return (
-    <div className="p-6 bg-white shadow-lg rounded-lg max-w-lg mx-auto textStandard">
+    <div className="p-6 bg-white shadow-lg rounded-lg max-w-full md:max-w-lg mx-auto md:mx-0 textStandard mt-6 md:mt-0">
       <h2 className="text-xl font-bold text-center mb-4">My shopping</h2>
       {cart.length === 0 ? (
-        <p className="text-center text-gray-500">Your cart is empty</p>
+        <p className="text-center text-gray-500"> 🛒 Your cart is empty. Add products to start shopping!</p>
       ) : (
         <div>
           <button className="w-full backgroundSecondary font-bold text-white py-2 rounded mb-4">
@@ -36,7 +36,7 @@ export default function CartSummaryComponent() {
             </div>
           <button
             onClick={clearCart}
-            className="mt-4 w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-700"
+            className="mt-4 w-full backgroundDelete text-white py-2 rounded-lg hover:bg-red-500"
           >
             Clear Cart
           </button>

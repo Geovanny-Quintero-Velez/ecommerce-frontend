@@ -1,4 +1,5 @@
 "use client"
+import Link from 'next/link';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Product } from '@/interfaces/product/product';
@@ -96,24 +97,29 @@ export default function ProductDetails({ product }: Props) {
           {product.discount?
           (<>
             <p className="text-lg font-semibold text-red-500">{(1-product.discount/product.price).toFixed(2)}% OFF</p>
-            <p className="text-lg font-semibold line-through text-gray-500">{product.price}</p>
+            <p className="text-lg font-semibold line-through text-gray-500">${product.price}</p>
             <p className="text-2xl font-bold text-green-600">COP ${product.discount}</p>
           </>
           ):
             <p className="text-2xl font-bold textStandard">COP ${product.price}</p>
           }
           
-          <button className="mt-4 w-full backgroundSecondary text-white py-2 rounded-lg">Buy now</button>
+          <div className="flex space-x-2 mt-4">
+            <button className="flex-grow backgroundSecondary text-white font-bold py-2 rounded-lg">
+              Buy now
+            </button>
+            {/* Add to cart button */}
+            <button 
+              className="flex-grow-0 backgroundInfo text-white py-2 px-3 rounded-lg flex items-center justify-center" 
+              onClick={handleAddToCart}
+            >
+              <LiaCartPlusSolid className="text-3xl" />
+            </button>
+          </div>
+          <Link href="/cart" className="mt-4 inline-block text-center w-full textSecondary hover:underline">
+              Go to my shopping
+          </Link>
           
-          {/* Add to cart button */}
-          <button 
-            className="mt-2 w-full backgroundInfo text-white py-2 rounded-lg flex items-center" 
-            onClick={handleAddToCart}
-          >
-            <LiaCartPlusSolid className="m-auto text-3xl" />
-          </button>
-          
-          <p className="mt-4 text-center textSecondary cursor-pointer font-semibold">Return to the store</p>
         </div>
       </div>
     </div>
