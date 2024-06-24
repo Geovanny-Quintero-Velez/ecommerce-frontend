@@ -4,6 +4,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Product } from '@/interfaces/product/product';
 import { Navigation, Pagination } from 'swiper/modules';
 import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa';
+import { LiaCartPlusSolid } from "react-icons/lia";
+import { useCart } from '@/context/CartContext';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -16,9 +19,23 @@ export default function ProductDetails({ product }: Props) {
   if (!product) return null;
 
   const [mainImage, setMainImage] = useState(product.imageurls ? product.imageurls[0] : "");
+  const { addToCart } = useCart(); 
 
   const filledStars = Math.floor(product.rating);
   const hasHalfStar = product.rating % 1 !== 0;
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.productid,
+      name: product.name,
+      price: product.discount || product.price,
+      imageUrl: product.imageurls? product.imageurls[0] : "",
+      description: product.description || "",
+      category: "Default",
+      discountPrice: product.discount || undefined,
+      quantity: 1,
+    });
+  };
 
   return (
     <div className="flex flex-col lg:flex-row p-4 bg-white shadow rounded-lg">
@@ -50,7 +67,7 @@ export default function ProductDetails({ product }: Props) {
         </div>
       </div>
       <div className="w-full lg:w-1/3 p-4 lg:mt-0 mt-4">
-        <h1 className="text-2xl font-bold">{product.name}</h1>
+        <h1 className="text-2xl font-bold textStandard">{product.name}</h1>
         <div className="flex items-center mt-2">
         <div className="flex items-center">
           {[...Array(5)].map((_, index) => (
@@ -76,12 +93,27 @@ export default function ProductDetails({ product }: Props) {
           }
         </p>
         <div className="mt-4">
-          <p className="text-lg font-semibold line-through text-gray-500">$200,000.00</p>
-          <p className="text-lg font-semibold text-red-500">34% OFF</p>
-          <p className="text-2xl font-bold text-green-600">COP 108,285.23</p>
-          <button className="mt-4 w-full bg-green-500 text-white py-2 rounded-lg">Buy now</button>
-          <button className="mt-2 w-full bg-blue-500 text-white py-2 rounded-lg">Add to cart</button>
-          <p className="mt-4 text-center text-blue-600 cursor-pointer">Return to the store</p>
+          {product.discount?
+          (<>
+            <p className="text-lg font-semibold text-red-500">{(1-product.discount/product.price).toFixed(2)}% OFF</p>
+            <p className="text-lg font-semibold line-through text-gray-500">{product.price}</p>
+            <p className="text-2xl font-bold text-green-600">COP ${product.discount}</p>
+          </>
+          ):
+            <p className="text-2xl font-bold textStandard">COP ${product.price}</p>
+          }
+          
+          <button className="mt-4 w-full backgroundSecondary text-white py-2 rounded-lg">Buy now</button>
+          
+          {/* Add to cart button */}
+          <button 
+            className="mt-2 w-full backgroundInfo text-white py-2 rounded-lg flex items-center" 
+            onClick={handleAddToCart}
+          >
+            <LiaCartPlusSolid className="m-auto text-3xl" />
+          </button>
+          
+          <p className="mt-4 text-center textSecondary cursor-pointer font-semibold">Return to the store</p>
         </div>
       </div>
     </div>

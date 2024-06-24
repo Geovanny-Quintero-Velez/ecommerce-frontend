@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Footer from "@/components/general/footer/Footer";
+import {CartProvider} from "@/context/CartContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="backgroundBackground min-h-screen">
-          {children}
+        <CartProvider>
+        {children}
+        </CartProvider>
         </div>
       </body>
     </html>

@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Navbar from '@/components/general/navbar/Navbar';
 import CommentsSection from '@/components/product/CommentsSection';
-import PurchaseSection from '@/components/product/PurchaseSection';
+import CartSummarySection from '@/components/product/CartSummarySection';
 import ProductDetails from '@/components/product/ProductDetails';
 import { useFetchProducts } from "@/hooks/product/useFetchProducts";
 import { useFetchReviews } from '@/hooks/review/useFetchReviews';
@@ -46,11 +46,15 @@ export default function ProductInfo() {
       <div className="container mx-auto p-4">
         {(product && reviews)? (
           <>
-            <div className="lg:flex lg:space-x-4">
-              <ProductDetails product={product} />
-              <PurchaseSection />
+            <div className="lg:flex lg:space-x-4 lg:items-start">
+              <div className="lg:w-3/4">
+                <ProductDetails product={product} />
+              </div>
+              <div className="lg:w-1/4">
+                <CartSummarySection />
+              </div>
             </div>
-            <CommentsSection reviews={reviews}/>
+            <CommentsSection reviews={reviews} />
           </>
         ) : (
           <>
