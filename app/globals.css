@@ -79,6 +79,11 @@
 .placeholderPrimary::placeholder { 
   color: var(--color-primary);
 } 
+
+.deleteButton:hover {
+  background-color: var(--color-delete);
+}
+
 /*
 :root {
   --foreground-rgb: 0, 0, 0;

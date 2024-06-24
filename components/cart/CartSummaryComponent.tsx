@@ -36,7 +36,7 @@ export default function CartSummaryComponent() {
             </div>
           <button
             onClick={clearCart}
-            className="mt-4 w-full backgroundDelete text-white py-2 rounded-lg hover:bg-red-500"
+            className="mt-4 w-full bg-red-500 text-white py-2 rounded-lg deleteButton"
           >
             Clear Cart
           </button>
