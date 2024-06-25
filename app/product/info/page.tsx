@@ -1,4 +1,3 @@
-// app/product/[id]/page.js
 "use client"
 
 import { useSearchParams } from 'next/navigation';

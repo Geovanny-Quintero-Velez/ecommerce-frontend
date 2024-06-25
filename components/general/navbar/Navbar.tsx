@@ -92,7 +92,7 @@ function Navbar( {customSection}: Props ) {
             
             <SearchComponent 
             placeholder='Search...'
-            redirect='/search'
+            redirect='/product/search_results'
             show={!(customSection?.sectionName === 'PaymentTimeline')}
             />
           </div>
@@ -132,9 +132,9 @@ function Navbar( {customSection}: Props ) {
         {navPrimaryItems.map(item => (
           <MobileMenuItem key={item.path} {...item} />
         ))}
-        {/*currentUser*/ false ? (
+        {/*currentUser*/ true ? (
           <>       
-            <Link href="/profile" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">
+            <Link href="users/profile" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">
               Profile
             </Link>
             <button

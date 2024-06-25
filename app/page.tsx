@@ -1,6 +1,6 @@
-import Navbar from "../components/general/navbar/Navbar";
-import ProductCarousel from "../components/home/ProductsCarousel";
-import { useFetchProducts } from "../hooks/product/useFetchProducts";
+import Navbar from "@/components/general/navbar/Navbar";
+import ProductCarousel from "@/components/home/ProductsCarousel";
+import { useFetchProducts } from "@/hooks/product/useFetchProducts";
 
 export default async function HomePage() {
   const { fetchProducts } = useFetchProducts();

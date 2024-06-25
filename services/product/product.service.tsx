@@ -122,4 +122,8 @@ export class ProductService {
     public async getProductById(productId: string): Promise<Product | undefined> {
         return this.sampleProducts.find(product => product.productid === productId);
     }
+
+    public async getProductsByQuery(query: string): Promise<Product[]> {
+        return this.sampleProducts.filter(product => product.name.toLowerCase().includes(query.toLowerCase()));
+    }
 }

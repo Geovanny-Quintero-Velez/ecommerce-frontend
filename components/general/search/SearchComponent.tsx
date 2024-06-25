@@ -1,6 +1,5 @@
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
-import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 
 interface Props {
@@ -15,8 +14,7 @@ function SearchComponent({ placeholder, redirect, show }: Props) {
 
     const handleSearch = (e: any) => {
         e.preventDefault();
-        // Redirect to the search results page with the search query
-        router.push(`/searchedTechnicians?searchQuery=${searchQuery}`);
+        router.push(`${redirect}?search_query=${searchQuery}`);
     };
 
     if (!show) return null;

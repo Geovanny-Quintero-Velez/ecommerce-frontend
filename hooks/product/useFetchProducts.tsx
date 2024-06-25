@@ -13,5 +13,10 @@ export const useFetchProducts = () => {
         return product as Product;
     }
 
-    return { fetchProducts, fetchProductById };
+    const fetchProductsByQuery = async (query: string) => {
+        const products = await productService.getProductsByQuery(query);
+        return products as Product[];
+    }
+
+    return { fetchProducts, fetchProductById, fetchProductsByQuery };
 }

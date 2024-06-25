@@ -56,7 +56,7 @@ function NavbarSecondaryItem() {
 
     return (
         <div className="hidden md:flex items-center space-x-1">
-            {/*currentUser*/ false ? (
+            {/*currentUser*/ true ? (
                 <div className="relative">
                     <button
                         onClick={() => setMenuOpen(!menuOpen)}
@@ -68,14 +68,14 @@ function NavbarSecondaryItem() {
                     {menuOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg py-2 z-50">
                             <Link
-                                href="/profile"
+                                href="/users/profile"
                                 className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center"
                             >
                                 <FaRegUser className="mr-5"/>
                                 Profile
                             </Link>
                             <Link
-                                href="/settings"
+                                href="/users/settings"
                                 className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center"
                             >
                                 <IoSettingsOutline className="mr-5"/>
