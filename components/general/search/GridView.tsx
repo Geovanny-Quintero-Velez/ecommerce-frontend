@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import ProductCard from "./ProductCard"; // Importa el componente de tarjeta de producto
 import { Product } from "@/interfaces/product/product";
+import Link from "next/link";
 
 interface Props {
   products: Product[];
@@ -25,7 +26,9 @@ const GridView = ({products} : Props) => {
     <div className="container mx-auto px-4 py-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
         {currentProducts.map((product) => (
-          <ProductCard key={product.productid} product={product} />
+          <Link href={`/product/info?productid=${product.productid}`}>
+            <ProductCard key={product.productid} product={product} />
+          </Link>
         ))}
       </div>
       <div className="mt-4 flex justify-center">

@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa';
 import { Product } from '@/interfaces/product/product';
 
@@ -8,7 +7,7 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-  const { imageurls, name, price, discount, rating } = product;
+  const { productid, imageurls, name, price, discount, rating } = product;
 
   // Calcula las estrellas rellenadas y contorneadas según el rating decimal
   const filledStars = Math.floor(rating);
