@@ -26,8 +26,8 @@ const GridView = ({products} : Props) => {
     <div className="container mx-auto px-4 py-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
         {currentProducts.map((product) => (
-          <Link href={`/product/info?productid=${product.productid}`}>
-            <ProductCard key={product.productid} product={product} />
+          <Link key={product.productid} href={`/product/info?productid=${product.productid}`}>
+            <ProductCard product={product} />
           </Link>
         ))}
       </div>

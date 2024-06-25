@@ -21,6 +21,11 @@ export default function SearchResults() {
   const [sortOption, setSortOption] = useState('price-asc');
 
   useEffect(() => {
+    setSearchQuery(initialSearchQuery);
+    setTags([`Text: ${initialSearchQuery}`]);
+  }, [initialSearchQuery]);
+
+  useEffect(() => {
     async function fetchProductByQuery() {
       const { fetchProductsByQuery } = useFetchProducts();
       const fetchedProducts = await fetchProductsByQuery(searchQuery);
