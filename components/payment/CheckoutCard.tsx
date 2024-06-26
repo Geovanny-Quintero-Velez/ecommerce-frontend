@@ -3,15 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import PaymentProduct from "./PaymentProduct";
-import CheckoutCardSkeleton from "./skeleton/CheckoutCardSkeleton";
+import CheckoutCardSkeleton from "../cart/skeleton/CheckoutCardSkeleton";
+import { CartProduct } from "@/interfaces/product/cart.product";
 
-const CheckoutCard = () => {
-  const { cart } = useCart();
-  const [isClient, setIsClient] = useState(false);
+interface Props {
+  cart: CartProduct[];
+}
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+const CheckoutCard = ( {cart}: Props) => {
 
   const totalPrice = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -19,14 +18,10 @@ const CheckoutCard = () => {
   );
   const serviceFee = 20000;
 
-  if (!isClient) {
-    return null; // o un loader si prefieres
-  }
-
   return (
     <div className="h-fit p-6 bg-white shadow-lg rounded-lg max-w-full md:max-w-lg mx-auto md:mx-0 textStandard mt-6 md:mt-0">
       <h2 className="text-2xl font-medium mb-4">Checkout</h2>
-      {false ?(<div className="flex h-60 overflow-y-scroll flex-col gap-2">
+      {true ?(<div className="flex h-60 overflow-y-scroll flex-col gap-2">
         {cart.length > 0 ? (
           cart.map((product) => (
             <PaymentProduct key={product.id} product={product} />

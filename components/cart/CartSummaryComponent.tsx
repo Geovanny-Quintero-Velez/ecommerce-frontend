@@ -1,4 +1,5 @@
 import { useCart } from '@/context/CartContext';
+import Link from 'next/link';
 
 export default function CartSummaryComponent() {
   const { cart, clearCart } = useCart();
@@ -14,9 +15,11 @@ export default function CartSummaryComponent() {
         <p className="text-center text-gray-500"> 🛒 Your cart is empty. Add products to start shopping!</p>
       ) : (
         <div>
+          <Link href="/payment">
           <button className="w-full backgroundSecondary font-bold text-white py-2 rounded mb-4">
               Proceed to checkout
             </button>
+          </Link>
           <div className="flex justify-between py-4">
             <p className="text-lg">{totalQuantity} products</p>
             <p className="text-lg">COP {totalPrice.toLocaleString()}</p>

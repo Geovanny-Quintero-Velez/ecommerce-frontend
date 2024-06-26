@@ -1,20 +1,10 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-interface Producto {
-  id: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-  description: string;
-  category: string;
-  discountPrice?: number;
-  quantity: number; 
-}
+import { CartProduct } from '@/interfaces/product/cart.product';
 
 interface CartContextType {
-  cart: Producto[];
-  addToCart: (item: Producto) => void;
+  cart: CartProduct[];
+  addToCart: (item: CartProduct) => void;
   removeFromCart: (id: string) => void;
   increaseQuantity: (id: string) => void;
   decreaseQuantity: (id: string) => void;
@@ -32,7 +22,7 @@ export const useCart = (): CartContextType => {
 };
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<Producto[]>(() => {
+  const [cart, setCart] = useState<CartProduct[]>(() => {
     if (typeof window !== 'undefined') {
       const savedCart = localStorage.getItem('cart');
       return savedCart ? JSON.parse(savedCart) : [];
@@ -44,7 +34,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (item: Producto) => {
+  const addToCart = (item: CartProduct) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
       if (existingItem) {

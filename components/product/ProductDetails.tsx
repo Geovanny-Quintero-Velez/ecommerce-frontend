@@ -105,9 +105,9 @@ export default function ProductDetails({ product }: Props) {
           }
           
           <div className="flex space-x-2 mt-4">
-            <button className="flex-grow backgroundSecondary text-white font-bold py-2 rounded-lg">
-              Buy now
-            </button>
+            <Link href="/payment" className="flex-grow backgroundSecondary text-white font-bold py-2 rounded-lg flex items-center justify-center">
+                <span className="mx-auto">Buy now</span>
+            </Link>
             {/* Add to cart button */}
             <button 
               className="flex-grow-0 backgroundInfo text-white py-2 px-3 rounded-lg flex items-center justify-center" 

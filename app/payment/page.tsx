@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/general/navbar/Navbar";
-import PaymentCard from "../../components/cart/PaymentCard";
-import AddressCard from "../../components/cart/AddressCard";
-import PaymentTimeLine from "../../components/cart/PaymentTimeline";
+import PaymentCard from "../../components/payment/PaymentCard";
+import AddressCard from "../../components/payment/AddressCard";
+import PaymentTimeLine from "../../components/general/navbar/PaymentTimeline";
 import PaypalLogo from "../../public/Paypal_logo.png";
 import VisaMasterCardLogo from "../../public/visamastercard_logo.png";
-import CheckoutCard from "@/components/cart/CheckoutCard";
+import CheckoutCard from "@/components/payment/CheckoutCard";
+import { useCart } from "@/context/CartContext";
 
 const paymentMethods = [
   { id: 1, name: "PayPal", logo: PaypalLogo.src },
@@ -20,9 +21,16 @@ const customSection = {
 };
 
 const PaymentPage: React.FC = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  const { cart } = useCart();
+
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<number>(1);
 
-  return (
+  return isClient ? (
     <div>
       <Navbar customSection={customSection} />
       <div className="flex-col md:flex-row flex p-6 backgroundBackground min-h-screen">
@@ -34,10 +42,10 @@ const PaymentPage: React.FC = () => {
           />
           <AddressCard />
         </div>
-        <CheckoutCard />
+        <CheckoutCard cart={cart}/>
       </div>
     </div>
-  );
+  ): null;
 };
 
 export default PaymentPage;

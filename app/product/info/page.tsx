@@ -10,7 +10,7 @@ import { useFetchProducts } from "@/hooks/product/useFetchProducts";
 import { useFetchReviews } from "@/hooks/review/useFetchReviews";
 import { Product } from "@/interfaces/product/product";
 import { Review } from "@/interfaces/review/review";
-import ProductSkeleton from "@/components/product/skeleton/ProductSkeleton";
+import ProductSkeleton from "@/components/skeletons/ProductSkeleton";
 
 export default function ProductInfo() {
   const searchParams = useSearchParams();

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import CartCard from "../../components/cart/CartCard";
-import PaymentTimeLine from "../../components/cart/PaymentTimeline";
+import PaymentTimeLine from "../../components/general/navbar/PaymentTimeline";
 import Navbar from "@/components/general/navbar/Navbar";
 import CartSummaryComponent from "@/components/cart/CartSummaryComponent";
 import { useCart } from "@/context/CartContext";
