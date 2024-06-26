@@ -3,7 +3,7 @@
 //import { UseLogout } from '@/hooks/auth/useLogout';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { useEffect, useContext, ReactElement } from 'react';
+import { useEffect, useContext, ReactElement, useState } from 'react';
 import SearchComponent from "../search/SearchComponent";
 import MobileMenuItem from "./MobileMenuItem";
 import NavbarPrimaryItem from "./NavbarPrimaryItem";
@@ -11,6 +11,8 @@ import NavbarSecondaryItem from "./NavbarSecondaryItem";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { IoHomeOutline, IoHome, IoCart, IoCartOutline, IoHeart, IoHeartOutline } from "react-icons/io5";
+import { useAuth } from '@/context/UserContext';
+import { User } from '@/interfaces/user/user';
 
 //import { UserContext } from '@/context/UserContext';
 
@@ -29,7 +31,7 @@ const navPrimaryItems =  [
     selectedIcon: <IoCart className='text-3xl'/>,
   },
   {
-    path: '/wishlist',
+    path: '/users/wishlist',
     title: 'Wish List',
     defaultIcon: <IoHeartOutline className='text-3xl'/>,
     selectedIcon: <IoHeart className='text-3xl'/>,
@@ -44,10 +46,15 @@ interface Props{
 }
 
 function Navbar( {customSection}: Props ) {
-  //const userContext = useContext(UserContext);
-  //const currentUser = userContext?.currentUser;
-  //const { handleLogout:logout } = UseLogout();
+  const { currentUser, logout } = useAuth() ;
   const router = useRouter();
+    const [user, setUser] = useState<User | null>(null); 
+
+    useEffect(() => {
+        if (currentUser) {
+            setUser(currentUser); 
+        }
+    }, [currentUser]);
 
   useEffect(() => {
     const btn = document.querySelector('button.mobile-menu-button');
@@ -132,14 +139,14 @@ function Navbar( {customSection}: Props ) {
         {navPrimaryItems.map(item => (
           <MobileMenuItem key={item.path} {...item} />
         ))}
-        {/*currentUser*/ true ? (
+        { user ? (
           <>       
             <Link href="users/profile" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">
               Profile
             </Link>
             <button
               onClick={() => {
-                //logout();
+                logout();
                 router.push("/");
               }}
               className="block w-full text-left py-2 px-4 text-sm textDelete font-semibold hover:bg-gray-200"

@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineExitToApp } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
-
+import { useAuth } from '@/context/UserContext';
+import { User } from '@/interfaces/user/user';
 
 function NavbarSkeleton() {
     return (
@@ -20,50 +21,43 @@ function NavbarSkeleton() {
 }
 
 function NavbarSecondaryItem() {
-    
-    const loading = false;
-    const userContext = null;
-    /*
-    if (!userContext) {
-        return <div>Error loading user</div>
-    }*/
-    
-    const currentPath = usePathname();
+    const { currentUser, logout }  = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
     const router = useRouter();
-    //const { handleLogout: logout } = UseLogout();
-    /*const { currentUser }  = userContext;
+    const currentPath = usePathname();
+    const [isClient, setIsClient] = useState(false);
+    const [user, setUser] = useState<User | null>(null); // Estado inicial nulo para currentUser
 
     useEffect(() => {
-        if (!loading && !currentUser) {
-            setMenuOpen(false);
+        setIsClient(true);
+        if (currentUser) {
+            setUser(currentUser); // Actualiza el estado del usuario una vez que se monte el componente
         }
-    }, [loading, currentUser]);
+    }, [currentUser]);
 
-    if (loading) {
-        return <NavbarSkeleton />;
-    }
-*/
     const handleLogout = async () => {
-        //logout();
+        logout();
         setMenuOpen(false);
-        if (currentPath === "/"){
+        if (currentPath === "/") {
             window.location.reload();
-        }else{
+        } else {
             router.push("/");
         }
     };
 
+    if (!isClient) {
+        return <NavbarSkeleton />;
+    }
+
     return (
-        <div className="hidden md:flex items-center space-x-1">
-            {/*currentUser*/ true ? (
+        <div className="hidden md:flex items-center space-x-1" suppressHydrationWarning>
+            {user ? (
                 <div className="relative">
                     <button
                         onClick={() => setMenuOpen(!menuOpen)}
                         className="w-10 h-10 rounded-full bg-gray-500 text-white flex items-center justify-center"
                     >
-                        {/* currentUser.username? currentUser.username.charAt(0).toUpperCase(): "P" */}
-                        P
+                        { user.username ? user.username.charAt(0).toUpperCase() : "P" }
                     </button>
                     {menuOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg py-2 z-50">
