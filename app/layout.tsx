@@ -4,6 +4,7 @@ import "./globals.css";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {CartProvider} from "@/context/CartContext";
+import {UserProvider} from "@/context/UserContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,9 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="backgroundBackground min-h-screen">
-        <CartProvider>
-        {children}
-        </CartProvider>
+        <UserProvider>
+          <CartProvider>
+          {children}
+          </CartProvider>
+        </UserProvider>
         </div>
       </body>
     </html>

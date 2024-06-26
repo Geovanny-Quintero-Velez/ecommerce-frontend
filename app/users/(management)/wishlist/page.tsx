@@ -33,9 +33,7 @@ const products = [
 
 const WishlistPage = () => {
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md">
-            <Wishlist products={products} />
-        </div>
+        <Wishlist products={products} />
     );
 };
 
