@@ -3,49 +3,21 @@ import  axios,  {AxiosInstance} from 'axios';
 
 export class UserService {
     protected readonly axios: AxiosInstance;
-    public constructor(url: string) {
-        this.axios = axios.create(
-            {
-                baseURL: url,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                timeout: 3000,
-                timeoutErrorMessage: 'Request timed out'
-            }
-        )
-    }
-
-    sampleUsers: User[] = [
-        {
-            userid: "a",
-            email: "a@email.com",
-            name: "John",
-            lastname: "Doe",
-            birthdate: new Date(),
-            username: "JohnDoeGod"
-        },
-        {
-            userid: "b",
-            email: "b@email.com",
-            name: "Mary",
-            lastname: "Smidth",
-            birthdate: new Date(),
-            username: "MarySmidthGoddes"
-        },
-        {
-            userid: "c",
-            email: "c@email.com",
-            name: "James",
-            lastname: "Morgan",
-            birthdate: new Date(),
-            username: "JamesMorganGod"
+    public constructor() {
+        const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+        if (!baseURL) {
+            throw new Error('The NEXT_PUBLIC_BASE_URL environment variable is not defined');
         }
-    ]
 
-    public async getUsers(): Promise<User[]> {
-        return this.sampleUsers;
+        this.axios = axios.create({
+            baseURL: baseURL,
+            headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+            },
+            timeout: 3000,
+            timeoutErrorMessage: 'Request timed out'
+        });
     }
 
     public async getUserById(userId: string): Promise<User | undefined> {
@@ -53,12 +25,12 @@ export class UserService {
             const response = await this.axios.get(`${this.axios.defaults.baseURL}/user/${userId}`);
             return response.data as User;
         }catch (error: any) {
-            if (error.response) {
-                const errorMessage = error.response.data.message;
-                throw new Error(errorMessage);
-            } else {
-                throw error;
-            }
+        if (error.response) {
+            const errorMessage = error.response.data.message;
+            throw new Error(errorMessage);
+        } else {
+            throw new Error('An unexpected error occurred while capturing the user data');
+        }
         }
     }
 }

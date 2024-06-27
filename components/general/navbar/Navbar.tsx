@@ -13,7 +13,7 @@ import logo from "../../../public/logo.png";
 import { IoHomeOutline, IoHome, IoCart, IoCartOutline, IoHeart, IoHeartOutline } from "react-icons/io5";
 import { useAuth } from '@/context/UserContext';
 import { User } from '@/interfaces/user/user';
-import { useAuthentication } from '@/hooks/user/useAuthentication';
+import { useAuthentication } from '@/hooks/auth/useAuthentication';
 
 //import { UserContext } from '@/context/UserContext';
 

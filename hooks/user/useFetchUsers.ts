@@ -1,16 +1,25 @@
+import { useState } from 'react';
 import { User } from '@/interfaces/user/user';
-import { LoginResponse } from '@/interfaces/user/login-response';
 import { UserService } from '@/services/user/user.service';
-import { CreateUser } from '@/interfaces/user/create-user';
 
 export const useFetchUsers = () => {
-    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const userService = new UserService(baseURL);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const userService = new UserService();
     
-    const fetchUserById = async (userId: string) => {
-        const user = await userService.getUserById(userId);
-        return user as User;
-    }
+    const fetchUserById = async (userId: string): Promise<User | null> => {
+        setLoading(true);
+        setError(null);
+        try {
+            const user = await userService.getUserById(userId);
+            return user as User;
+        } catch (err: any) {
+            setError(err.message || 'Failed to fetch user');
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    return { fetchUserById };
+    return { fetchUserById, loading, error };
 }

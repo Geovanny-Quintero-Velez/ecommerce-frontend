@@ -7,44 +7,53 @@ import { LoginResponse } from '@/interfaces/user/login-response';
 import { User } from '@/interfaces/user/user';
 
 interface Props {
-  login: (email: string, password: string) => Promise<LoginResponse>;
+  login: (email: string, password: string) => Promise<LoginResponse | null>;
   saveCurrentUser: (user: User) => void;
   fetchUserById: (userId: string) => Promise<User>;
+  loading: boolean;
+  error: string | null;
 }
 
-export default function LoginCard({ login, saveCurrentUser, fetchUserById }: Props) {
+export default function LoginCard({ login, saveCurrentUser, fetchUserById, loading, error }: Props) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
     if (!email || !password) {
       alert("¡Todos los campos deben tener un valor!");
-    } else {
-      try {
-        const loginResponse = await login(email, password);
+      return;
+    }
+
+    try {
+      const loginResponse = await login(email, password);
+      if (loginResponse !== null) {
         const user = await fetchUserById(loginResponse.payload.userid);
         saveCurrentUser(user);
         router.push("/");
-      } catch (e: any) {
-        alert(e.message);
       }
+    } catch (e: any) {
+      alert(e.message);
     }
   };
 
   return (
     <div className="w-1/2 p-10" style={{ color: 'var(--color-primary)' }}>
       <h2 className="text-2xl font-bold mb-4">Welcome Back!</h2>
-      <div className="space-y-4">
+      {error && <p className="text-red-500">{error}</p>}
+      <form className="space-y-4" onSubmit={onSubmit}>
         <div>
           <label htmlFor="email" className="block ml-4 font-bold text-sm">Email</label>
           <input 
             type="email" 
             id="email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)} 
             className="backgroundBackground w-full p-2 rounded mt-1 text-sm" 
             placeholder="Enter your email" 
+            required
           />
         </div>
         <div>
@@ -52,20 +61,23 @@ export default function LoginCard({ login, saveCurrentUser, fetchUserById }: Pro
           <input 
             type="password" 
             id="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)} 
             className="backgroundBackground w-full p-2 rounded mt-1 text-sm" 
             placeholder="Enter your password" 
+            required
           />
           <a href="#" className="text-sm float-right mt-1">Forgot your password?</a>
         </div>
         <button 
-          onClick={onSubmit}
+          type="submit"
           className="w-full font-bold text-white p-2 rounded mt-4" 
           style={{ background: 'var(--color-secondary)' }}
+          disabled={loading}
         >
-          Login
+          {loading ? 'Logging in...' : 'Login'}
         </button>
-      </div>
+      </form>
       <div className="mt-6 text-center">
         <p className="text-sm mb-5">You can also login with</p>
         <button className="mt-2 flex items-center justify-center border border-gray-300 p-2 pl-10 pr-10 rounded" style={{ width: 'fit-content', margin: '0 auto' }}>
