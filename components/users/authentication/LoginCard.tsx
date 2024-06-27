@@ -9,7 +9,7 @@ import { User } from '@/interfaces/user/user';
 interface Props {
   login: (email: string, password: string) => Promise<LoginResponse | null>;
   saveCurrentUser: (user: User) => void;
-  fetchUserById: (userId: string) => Promise<User>;
+  fetchUserById: (userId: string) => Promise<User | null>;
   loading: boolean;
   error: string | null;
 }
@@ -31,7 +31,9 @@ export default function LoginCard({ login, saveCurrentUser, fetchUserById, loadi
       const loginResponse = await login(email, password);
       if (loginResponse !== null) {
         const user = await fetchUserById(loginResponse.payload.userid);
-        saveCurrentUser(user);
+        if (user !== null) {
+          saveCurrentUser(user);
+        }
         router.push("/");
       }
     } catch (e: any) {

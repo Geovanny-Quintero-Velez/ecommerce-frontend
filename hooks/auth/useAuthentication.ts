@@ -21,6 +21,7 @@ export const useAuthentication = () => {
       if (user && user.token) {
         Cookies.set('currentUser', JSON.stringify(user));
         localStorage.setItem('token', user.token);
+        console.log("new token", user.token)
         router.push('/');
       }
       return user as LoginResponse;

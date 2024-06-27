@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useCart } from '@/context/CartContext';
+import {CartProduct} from '@/interfaces/product/cart.product';
+import defaultIMG from '@/public/producto-stock-estandar.png';
 
 const QuantityPicker = ({ id, quantity } : { id: string; quantity: number; }) => {
   const { increaseQuantity, decreaseQuantity } = useCart();
@@ -27,7 +29,7 @@ const QuantityPicker = ({ id, quantity } : { id: string; quantity: number; }) =>
   );
 };
 
-const CartCard = ({ product, removeProduct } : { product: any; removeProduct: (id: string) => void; }) => {
+const CartCard = ({ product, removeProduct } : { product: CartProduct; removeProduct: (id: string) => void; }) => {
   const {
     id,
     name,
@@ -44,7 +46,7 @@ const CartCard = ({ product, removeProduct } : { product: any; removeProduct: (i
       <div className="w-full md:w-36 h-48 md:h-auto relative">
         <Image
           className="w-full h-full object-cover rounded-lg"
-          src={imageUrl}
+          src={imageUrl || defaultIMG}
           alt={name}
           layout="fill"
         />

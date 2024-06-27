@@ -50,7 +50,7 @@
   background-color: var(--color-delete);
 }
 
-.warningStandard {
+.textWarning {
   color: var(--color-warning);
 }
 

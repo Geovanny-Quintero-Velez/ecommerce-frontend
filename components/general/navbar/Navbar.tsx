@@ -11,11 +11,10 @@ import NavbarSecondaryItem from "./NavbarSecondaryItem";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { IoHomeOutline, IoHome, IoCart, IoCartOutline, IoHeart, IoHeartOutline } from "react-icons/io5";
+import { RiAdminLine, RiAdminFill } from "react-icons/ri";
 import { useAuth } from '@/context/UserContext';
 import { User } from '@/interfaces/user/user';
 import { useAuthentication } from '@/hooks/auth/useAuthentication';
-
-//import { UserContext } from '@/context/UserContext';
 
 
 const navPrimaryItems =  [
@@ -36,7 +35,7 @@ const navPrimaryItems =  [
     title: 'Wish List',
     defaultIcon: <IoHeartOutline className='text-3xl'/>,
     selectedIcon: <IoHeart className='text-3xl'/>,
-  },
+  }
 ]; 
 
 interface Props{ 
@@ -122,7 +121,12 @@ function Navbar( {customSection}: Props ) {
               {navPrimaryItems.map(item => (
                 <NavbarPrimaryItem key={item.path} {...item} />
               ))}
-            </div>
+              {
+                user && user.role === 'admin' ? (
+                  <NavbarPrimaryItem path='/admin' title='Admin' defaultIcon={<RiAdminLine className='text-3xl'/>} selectedIcon={<RiAdminFill className='text-3xl'/>}/>
+                ):(null)
+              }
+          </div>
           
 
           {/* Secondary Navbar items */}

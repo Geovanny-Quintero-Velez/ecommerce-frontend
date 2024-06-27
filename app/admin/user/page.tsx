@@ -1,54 +1,38 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useFetchUsers } from '@/hooks/user/useFetchUsers';
+import { User } from '@/interfaces/user/user';
+import { MdModeEdit, MdDelete } from "react-icons/md";
 
-const users = [
-    { userId: '1', email: 'email1@example.com', name: 'User1', lastname: 'Last1', birthdate: '01-01-1990', role: 'Admin', username: 'user1', createdat: '2023-01-01', deletedat: '' },
-    { userId: '2', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '3', email: 'email3@example.com', name: 'User3', lastname: 'Last3', birthdate: '03-03-1990', role: 'User', username: 'user3', createdat: '2023-01-03', deletedat: '' },
-    { userId: '4', email: 'email4@example.com', name: 'User4', lastname: 'Last4', birthdate: '04-04-1990', role: 'Admin', username: 'user4', createdat: '2023-01-04', deletedat: '' },
-    { userId: '5', email: 'email5@example.com', name: 'User5', lastname: 'Last5', birthdate: '05-05-1990', role: 'User', username: 'user5', createdat: '2023-01-05', deletedat: '' },
-    { userId: '6', email: 'email6@example.com', name: 'User6', lastname: 'Last6', birthdate: '06-06-1990', role: 'User', username: 'user6', createdat: '2023-01-06', deletedat: '' },
-    { userId: '7', email: 'email7@example.com', name: 'User7', lastname: 'Last7', birthdate: '07-07-1990', role: 'Admin', username: 'user7', createdat: '2023-01-07', deletedat: '' },
-    { userId: '8', email: 'email1@example.com', name: 'User1', lastname: 'Last1', birthdate: '01-01-1990', role: 'Admin', username: 'user1', createdat: '2023-01-01', deletedat: '' },
-    { userId: '9', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '10', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '11', email: 'email1@example.com', name: 'User1', lastname: 'Last1', birthdate: '01-01-1990', role: 'Admin', username: 'user1', createdat: '2023-01-01', deletedat: '' },
-    { userId: '12', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '13', email: 'email3@example.com', name: 'User3', lastname: 'Last3', birthdate: '03-03-1990', role: 'User', username: 'user3', createdat: '2023-01-03', deletedat: '' },
-    { userId: '14', email: 'email4@example.com', name: 'User4', lastname: 'Last4', birthdate: '04-04-1990', role: 'Admin', username: 'user4', createdat: '2023-01-04', deletedat: '' },
-    { userId: '15', email: 'email5@example.com', name: 'User5', lastname: 'Last5', birthdate: '05-05-1990', role: 'User', username: 'user5', createdat: '2023-01-05', deletedat: '' },
-    { userId: '16', email: 'email6@example.com', name: 'User6', lastname: 'Last6', birthdate: '06-06-1990', role: 'User', username: 'user6', createdat: '2023-01-06', deletedat: '' },
-    { userId: '17', email: 'email7@example.com', name: 'User7', lastname: 'Last7', birthdate: '07-07-1990', role: 'Admin', username: 'user7', createdat: '2023-01-07', deletedat: '' },
-    { userId: '18', email: 'email1@example.com', name: 'User1', lastname: 'Last1', birthdate: '01-01-1990', role: 'Admin', username: 'user1', createdat: '2023-01-01', deletedat: '' },
-    { userId: '19', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '20', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '1', email: 'email1@example.com', name: 'User1', lastname: 'Last1', birthdate: '01-01-1990', role: 'Admin', username: 'user1', createdat: '2023-01-01', deletedat: '' },
-    { userId: '2', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '3', email: 'email3@example.com', name: 'User3', lastname: 'Last3', birthdate: '03-03-1990', role: 'User', username: 'user3', createdat: '2023-01-03', deletedat: '' },
-    { userId: '4', email: 'email4@example.com', name: 'User4', lastname: 'Last4', birthdate: '04-04-1990', role: 'Admin', username: 'user4', createdat: '2023-01-04', deletedat: '' },
-    { userId: '5', email: 'email5@example.com', name: 'User5', lastname: 'Last5', birthdate: '05-05-1990', role: 'User', username: 'user5', createdat: '2023-01-05', deletedat: '' },
-    { userId: '6', email: 'email6@example.com', name: 'User6', lastname: 'Last6', birthdate: '06-06-1990', role: 'User', username: 'user6', createdat: '2023-01-06', deletedat: '' },
-    { userId: '7', email: 'email7@example.com', name: 'User7', lastname: 'Last7', birthdate: '07-07-1990', role: 'Admin', username: 'user7', createdat: '2023-01-07', deletedat: '' },
-    { userId: '8', email: 'email1@example.com', name: 'User1', lastname: 'Last1', birthdate: '01-01-1990', role: 'Admin', username: 'user1', createdat: '2023-01-01', deletedat: '' },
-    { userId: '9', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '10', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '11', email: 'email1@example.com', name: 'User1', lastname: 'Last1', birthdate: '01-01-1990', role: 'Admin', username: 'user1', createdat: '2023-01-01', deletedat: '' },
-    { userId: '12', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '13', email: 'email3@example.com', name: 'User3', lastname: 'Last3', birthdate: '03-03-1990', role: 'User', username: 'user3', createdat: '2023-01-03', deletedat: '' },
-    { userId: '14', email: 'email4@example.com', name: 'User4', lastname: 'Last4', birthdate: '04-04-1990', role: 'Admin', username: 'user4', createdat: '2023-01-04', deletedat: '' },
-    { userId: '15', email: 'email5@example.com', name: 'User5', lastname: 'Last5', birthdate: '05-05-1990', role: 'User', username: 'user5', createdat: '2023-01-05', deletedat: '' },
-    { userId: '16', email: 'email6@example.com', name: 'User6', lastname: 'Last6', birthdate: '06-06-1990', role: 'User', username: 'user6', createdat: '2023-01-06', deletedat: '' },
-    { userId: '17', email: 'email7@example.com', name: 'User7', lastname: 'Last7', birthdate: '07-07-1990', role: 'Admin', username: 'user7', createdat: '2023-01-07', deletedat: '' },
-    { userId: '18', email: 'email1@example.com', name: 'User1', lastname: 'Last1', birthdate: '01-01-1990', role: 'Admin', username: 'user1', createdat: '2023-01-01', deletedat: '' },
-    { userId: '19', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-    { userId: '20', email: 'email2@example.com', name: 'User2', lastname: 'Last2', birthdate: '02-02-1990', role: 'User', username: 'user2', createdat: '2023-01-02', deletedat: '' },
-];
-
-const Page = () => {
+const AdminUserPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
+    const { fetchAllUsers, loading, error, deleteUser } = useFetchUsers();
+    const [users, setUsers] = useState<User[]>([]);
+
+    useEffect(() => {
+        const getUsers = async () => {
+            const fetchedUsers = await fetchAllUsers();
+            if (fetchedUsers) {
+                setUsers(fetchedUsers);
+            }
+        };
+        getUsers();
+    }, []);
+
+    const handleDeleteButton = async (userId: string) => {
+        if (window.confirm("Are you sure you want to delete this user?")) {
+            await deleteUser(userId);
+            // Después de eliminar, actualizar la lista de usuarios
+            const updatedUsers = await fetchAllUsers();
+            if (updatedUsers) {
+                setUsers(updatedUsers);
+            }
+        }
+    }
+    
 
     // Calcular el índice de los usuarios a mostrar
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -60,6 +44,14 @@ const Page = () => {
 
     // Función para cambiar de página
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <div className="flex justify-center items-center h-full">
@@ -89,24 +81,23 @@ const Page = () => {
                     </thead>
                     <tbody>
                         {currentUsers.map((user) => (
-                            <tr key={user.userId} className="bg-gray-100 hover:bg-gray-200">
-                                <td className="px-4 py-2">{user.userId}</td>
+                            <tr key={user.userid} className="bg-gray-100 hover:bg-gray-200">
+                                <td className="px-4 py-2">{user.userid}</td>
                                 <td className="px-4 py-2">{user.email}</td>
                                 <td className="px-4 py-2">{user.name}</td>
                                 <td className="px-4 py-2">{user.lastname}</td>
                                 <td className="px-4 py-2">{user.role}</td>
                                 <td className="px-4 py-2">{user.username}</td>
-                                <td className="px-4 py-2">{user.birthdate}</td>
-                                <td className="px-4 py-2">{user.createdat}</td>
-                                <td className="px-4 py-2">{user.deletedat}</td>
+                                <td className="px-4 py-2">{new Date(user.birthdate).toLocaleDateString()}</td>
+                                <td className="px-4 py-2">{user.createdat ? new Date(user.createdat).toLocaleDateString() : ''}</td>
+                                <td className="px-4 py-2">{user.deletedat ? new Date(user.deletedat).toLocaleDateString() : ''}</td>
                                 <td className="flex justify-between items-center">
-                                <Link href="#" className="block w-8 h-8 relative">
-                                    <Image src="/edit.png" alt="edit icon" width={32} height={32} 
-                                    />
-                                </Link>
-                                <Link href="#" className="block w-8 h-8 relative">
-                                    <Image src="/trash.png" alt="delete icon" width={32} height={32} />
-                                </Link>
+                                    <Link href={`/admin/user/[id]?id=${user.userid}`} className="block w-8 h-8 relative">
+                                        <MdModeEdit className="text-3xl textWarning"/>
+                                    </Link>
+                                    <button onClick={() => handleDeleteButton(user.userid)} className="block w-8 h-8 relative">
+                                        <MdDelete className="text-3xl textDelete" />
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -120,17 +111,7 @@ const Page = () => {
                     >
                         &lt;
                     </button>
-                    {totalPages == 1 && (
-                        <>
-                           <button
-                                onClick={() => paginate(1)}
-                                className={`mx-1 px-3 py-1 border rounded-full bg-background text-primary`}
-                            >
-                                1
-                            </button> 
-                        </>
-                    )}
-                    {totalPages >1 && totalPages < 5 && Array.from({ length: totalPages }, (_, index) => (
+                    {totalPages > 1 && Array.from({ length: totalPages }, (_, index) => (
                         <button
                             key={index + 1}
                             onClick={() => paginate(index + 1)}
@@ -139,67 +120,6 @@ const Page = () => {
                             {index + 1}
                         </button>
                     ))}
-                    {totalPages > 4 && (
-                        <>
-                            {/* Mostrar primera página si no es la actual */}
-                            {currentPage > 1 && (
-                                <button
-                                    onClick={() => paginate(1)}
-                                    className={`mx-1 px-3 py-1 border rounded-full bg-primary text-background`}
-                                >
-                                    1
-                                </button>
-                            )}
-
-                            {/* Mostrar puntos suspensivos si hay más de 3 páginas */}
-                            {currentPage > 2 && (
-                                <span className="mx-1 px-3 py-1 text-background text-3xl font-bold self-center">...</span>
-                            )}
-
-                            {/* Mostrar página anterior si no es la primera */}
-                            {currentPage > 2 && (
-                                <button
-                                    onClick={() => paginate(currentPage - 1)}
-                                    className={`mx-1 px-3 py-1 border rounded-full bg-primary text-background`}
-                                >
-                                    {currentPage - 1}
-                                </button>
-                            )}
-
-                            {/* Mostrar página actual */}
-                            <button
-                                onClick={() => paginate(currentPage)}
-                                className={`mx-1 px-3 py-1 border rounded-full bg-background text-primary`}
-                            >
-                                {currentPage}
-                            </button>
-
-                            {/* Mostrar página siguiente si no es la última */}
-                            {currentPage < totalPages - 1 && (
-                                <button
-                                    onClick={() => paginate(currentPage + 1)}
-                                    className={`mx-1 px-3 py-1 border rounded-full bg-primary text-background`}
-                                >
-                                    {currentPage + 1}
-                                </button>
-                            )}
-
-                            {/* Mostrar puntos suspensivos si hay más de 3 páginas */}
-                            {currentPage < totalPages - 1 && (
-                                <span className="mx-1 px-3 py-1 text-background text-3xl font-bold self-center">...</span>
-                            )}
-
-                            {/* Mostrar última página si no es la actual */}
-                            {currentPage < totalPages && (
-                                <button
-                                    onClick={() => paginate(totalPages)}
-                                    className={`mx-1 px-3 py-1 border rounded-full bg-primary text-background`}
-                                >
-                                    {totalPages}
-                                </button>
-                            )}
-                        </>
-                    )}
                     <button
                         onClick={() => currentPage < totalPages && paginate(currentPage + 1)}
                         className="mx-1 px-2 pb-1 text-background text-3xl font-bold"
@@ -213,4 +133,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default AdminUserPage;

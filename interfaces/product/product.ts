@@ -8,6 +8,7 @@ export interface Product {
     stock: number;
     rating: number;
     reviewscount?: number;
+    keywords?: string[];
     discount?: number;
     createdat: Date;
     deletedat?: Date;
