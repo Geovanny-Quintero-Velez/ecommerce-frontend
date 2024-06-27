@@ -20,7 +20,6 @@ const EditUserPage = () => {
     useEffect(() => {
         const getUser = async () => {
             const user = await fetchUserById(userId);
-            console.log("Este es", user);
             if (user) {
                 setFormData({
                     name: user.name,

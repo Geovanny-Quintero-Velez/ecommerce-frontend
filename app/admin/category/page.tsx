@@ -1,29 +1,47 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useFetchCategories } from '@/hooks/category/useFetchCategories';
+import { Category } from '@/interfaces/category/category';
+import { MdModeEdit, MdDelete } from "react-icons/md";
 
-const categories = [
-    {
-        categoryId:'',
-        name:'',
-        description:'',
-        createdAt:'',
-        deletedAt:'',
-    },
-];
-
-const Page = () => {
+const AdminCategoryPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
-    // Calcular el índice de los usuarios a mostrar
+    // Estados para categorías y sus datos
+    const [productCategories, setProductCategories] = useState<Category[]>([]);
+    const { fetchAllCategories, loading, error, deleteCategory } = useFetchCategories();
+
+    useEffect(() => {
+        const getCategories = async () => {
+            const fetchedCategories = await fetchAllCategories();
+            if (fetchedCategories) {
+                setProductCategories(fetchedCategories);
+            }
+        };
+        getCategories();
+    }, []);
+
+    const handleDeleteButton = async (categoryId: string) => {
+        if (window.confirm("Are you sure you want to delete this user?")) {
+            await deleteCategory(categoryId);
+            // Después de eliminar, actualizar la lista de usuarios
+            const updatedCategories = await fetchAllCategories();
+            if (updatedCategories) {
+                setProductCategories(updatedCategories);
+            }
+        }
+    }
+
+    // Calcular el índice de las categorías a mostrar
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentElement = categories.slice(indexOfFirstItem, indexOfLastItem);
+    const currentCategories = productCategories.slice(indexOfFirstItem, indexOfLastItem);
 
     // Calcular el número total de páginas
-    const totalPages = Math.ceil(categories.length / itemsPerPage);
+    const totalPages = Math.ceil(productCategories.length / itemsPerPage);
 
     // Función para cambiar de página
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -39,37 +57,43 @@ const Page = () => {
                         </Link>
                     </div>
                 </div>
-                <table className="w-full h-4/6 border-collapse">
-                    <thead>
-                        <tr className="bg-white">
-                            <th className="px-4 py-2">Id</th>
-                            <th className="px-4 py-2">Name</th>
-                            <th className="px-4 py-2">Description</th>
-                            <th className="px-4 py-2">Created at</th>
-                            <th className="px-4 py-2">Deleted at</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {currentElement.map((category) => (
-                            <tr key={category.categoryId} className="bg-gray-100 hover:bg-gray-200">
-                                <td className="px-4 py-2">{category.categoryId}</td>
-                                <td className="px-4 py-2">{category.name}</td>
-                                <td className="px-4 py-2">{category.description}</td>
-                                <td className="px-4 py-2">{category.createdAt}</td>
-                                <td className="px-4 py-2">{category.deletedAt}</td>
-                                <td className="flex justify-between items-center">
-                                <Link href="#" className="block w-8 h-8 relative">
-                                    <Image src="/edit.png" alt="edit icon" width={32} height={32} />
-                                </Link>
-                                <Link href="#" className="block w-8 h-8 relative">
-                                    <Image src="/trash.png" alt="delete icon" width={32} height={32} />
-                                </Link>
-                                </td>
+                {loading ? (
+                    <div>Loading...</div>
+                ) : error ? (
+                    <div>Error: {error}</div>
+                ) : (
+                    <table className="w-full h-4/6 border-collapse">
+                        <thead>
+                            <tr className="bg-white">
+                                <th className="px-4 py-2">Id</th>
+                                <th className="px-4 py-2">Name</th>
+                                <th className="px-4 py-2">Description</th>
+                                <th className="px-4 py-2">Created at</th>
+                                <th className="px-4 py-2">Deleted at</th>
+                                <th></th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {currentCategories.map((category) => (
+                                <tr key={category.categoryid} className="bg-gray-100 hover:bg-gray-200">
+                                    <td className="px-4 py-2">{category.categoryid}</td>
+                                    <td className="px-4 py-2">{category.name}</td>
+                                    <td className="px-4 py-2">{category.description}</td>
+                                    <td className="px-4 py-2">{category.createdat ? new Date(category.createdat).toLocaleDateString() : ''}</td>
+                                    <td className="px-4 py-2">{category.deletedat ? new Date(category.deletedat).toLocaleDateString() : ''}</td>
+                                    <td className="flex justify-between items-center">
+                                        <Link href={`/admin/category/[id]?id=${category.categoryid}`}  className="block w-8 h-8 relative">
+                                            <MdModeEdit className="text-3xl textWarning"/>
+                                        </Link>
+                                        <button onClick={() => {handleDeleteButton(category.categoryid)}} className="block w-8 h-8 relative">
+                                            <MdDelete className="text-3xl textDelete"/>
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
                 <div className="rounded-bl-lg rounded-br-lg bg-primary py-2 pr-10 flex justify-end items-center">
                     <button
                         onClick={() => currentPage > 1 && paginate(currentPage - 1)}
@@ -78,17 +102,15 @@ const Page = () => {
                     >
                         &lt;
                     </button>
-                    {totalPages == 1 && (
-                        <>
-                           <button
-                                onClick={() => paginate(1)}
-                                className={`mx-1 px-3 py-1 border rounded-full bg-background text-primary`}
-                            >
-                                1
-                            </button> 
-                        </>
+                    {totalPages === 1 && (
+                        <button
+                            onClick={() => paginate(1)}
+                            className={`mx-1 px-3 py-1 border rounded-full bg-background text-primary`}
+                        >
+                            1
+                        </button>
                     )}
-                    {totalPages >1 && totalPages < 5 && Array.from({ length: totalPages }, (_, index) => (
+                    {totalPages > 1 && totalPages < 5 && Array.from({ length: totalPages }, (_, index) => (
                         <button
                             key={index + 1}
                             onClick={() => paginate(index + 1)}
@@ -99,7 +121,6 @@ const Page = () => {
                     ))}
                     {totalPages > 4 && (
                         <>
-                            {/* Mostrar primera página si no es la actual */}
                             {currentPage > 1 && (
                                 <button
                                     onClick={() => paginate(1)}
@@ -108,13 +129,9 @@ const Page = () => {
                                     1
                                 </button>
                             )}
-
-                            {/* Mostrar puntos suspensivos si hay más de 3 páginas */}
                             {currentPage > 2 && (
                                 <span className="mx-1 px-3 py-1 text-background text-3xl font-bold self-center">...</span>
                             )}
-
-                            {/* Mostrar página anterior si no es la primera */}
                             {currentPage > 2 && (
                                 <button
                                     onClick={() => paginate(currentPage - 1)}
@@ -123,16 +140,12 @@ const Page = () => {
                                     {currentPage - 1}
                                 </button>
                             )}
-
-                            {/* Mostrar página actual */}
                             <button
                                 onClick={() => paginate(currentPage)}
                                 className={`mx-1 px-3 py-1 border rounded-full bg-background text-primary`}
                             >
                                 {currentPage}
                             </button>
-
-                            {/* Mostrar página siguiente si no es la última */}
                             {currentPage < totalPages - 1 && (
                                 <button
                                     onClick={() => paginate(currentPage + 1)}
@@ -141,13 +154,9 @@ const Page = () => {
                                     {currentPage + 1}
                                 </button>
                             )}
-
-                            {/* Mostrar puntos suspensivos si hay más de 3 páginas */}
                             {currentPage < totalPages - 1 && (
                                 <span className="mx-1 px-3 py-1 text-background text-3xl font-bold self-center">...</span>
                             )}
-
-                            {/* Mostrar última página si no es la actual */}
                             {currentPage < totalPages && (
                                 <button
                                     onClick={() => paginate(totalPages)}
@@ -171,4 +180,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default AdminCategoryPage;

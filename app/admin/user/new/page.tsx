@@ -121,8 +121,8 @@ const CreateUserPage = () => {
                             defaultValue=""
                         >
                             <option value="" disabled>Select the role</option>
-                            <option value="admin">Admin</option>
-                            <option value="common">Common</option>
+                            <option value="admin">admin</option>
+                            <option value="user">user</option>
                         </select>
                     </div>
                     <div className="col-span-2 bg-primary py-2 pr-10 flex justify-end items-center rounded-bl-lg rounded-br-lg">
