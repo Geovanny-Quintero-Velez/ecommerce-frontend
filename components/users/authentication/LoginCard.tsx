@@ -3,14 +3,16 @@ import React, { useState } from "react";
 import { FaGoogle } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { User } from "@/interfaces/user/user";
+import { LoginResponse } from '@/interfaces/user/login-response';
+import { User } from '@/interfaces/user/user';
 
 interface Props {
-  login: (email: string, password: string) => Promise<User>;
+  login: (email: string, password: string) => Promise<LoginResponse>;
   saveCurrentUser: (user: User) => void;
+  fetchUserById: (userId: string) => Promise<User>;
 }
 
-export default function LoginCard({ login, saveCurrentUser }: Props) {
+export default function LoginCard({ login, saveCurrentUser, fetchUserById }: Props) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +23,8 @@ export default function LoginCard({ login, saveCurrentUser }: Props) {
       alert("¡Todos los campos deben tener un valor!");
     } else {
       try {
-        const user = await login(email, password);
+        const loginResponse = await login(email, password);
+        const user = await fetchUserById(loginResponse.payload.userid);
         saveCurrentUser(user);
         router.push("/");
       } catch (e: any) {

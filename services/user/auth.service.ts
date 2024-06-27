@@ -1,8 +1,24 @@
 import { User } from '@/interfaces/user/user';
 import { CreateUser } from '@/interfaces/user/create-user';
+import  axios,  {AxiosInstance} from 'axios';
 
 
 export class AuthService {
+
+    protected readonly axios: AxiosInstance;
+    public constructor(url: string) {
+        this.axios = axios.create(
+            {
+                baseURL: url,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                timeout: 3000,
+                timeoutErrorMessage: 'Request timed out'
+            }
+        )
+    }
 
     sampleUsers: User[] = [
         {
@@ -11,17 +27,27 @@ export class AuthService {
         name: 'John',
         lastname: 'Doe',
         birthdate: new Date(),
-        password: '123456'
         }
     ]
 
 
-    public async login (email: string, password: string) {
-        const foundUser = this.sampleUsers.find(user => user.email === email && user.password === password);
-        if (!foundUser) {
-            throw new Error('User not found');
+    public async login (email: string, password: string): Promise<any> {
+        console.log("email: ", email);
+        console.log("password: ", password);
+        try {
+            const response = await this.axios.post(`${this.axios.defaults.baseURL}/auth/login`, {
+                email: email,
+                password: password
+            });
+            return response.data;
+        }catch (error: any) {
+            if (error.response) {
+                const errorMessage = error.response.data.message;
+                throw new Error(errorMessage);
+            } else {
+                throw error;
+            }
         }
-        return foundUser;
     }
 
 

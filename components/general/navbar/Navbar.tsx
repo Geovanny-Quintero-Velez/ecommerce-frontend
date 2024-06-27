@@ -13,6 +13,7 @@ import logo from "../../../public/logo.png";
 import { IoHomeOutline, IoHome, IoCart, IoCartOutline, IoHeart, IoHeartOutline } from "react-icons/io5";
 import { useAuth } from '@/context/UserContext';
 import { User } from '@/interfaces/user/user';
+import { useAuthentication } from '@/hooks/user/useAuthentication';
 
 //import { UserContext } from '@/context/UserContext';
 
@@ -46,7 +47,14 @@ interface Props{
 }
 
 function Navbar( {customSection}: Props ) {
-  const { currentUser, logout } = useAuth() ;
+  const { currentUser, logout:removeUser } = useAuth() ;
+  const { logout } = useAuthentication();
+
+  const handleLogout = () => {
+    removeUser();
+    logout();
+  }
+
   const router = useRouter();
     const [user, setUser] = useState<User | null>(null); 
 
@@ -119,7 +127,7 @@ function Navbar( {customSection}: Props ) {
 
           {/* Secondary Navbar items */}
           
-          < NavbarSecondaryItem />
+          < NavbarSecondaryItem currentUser={user} logout={handleLogout}/>
           </div>  
           
           
@@ -146,7 +154,7 @@ function Navbar( {customSection}: Props ) {
             </Link>
             <button
               onClick={() => {
-                logout();
+                handleLogout();
                 router.push("/");
               }}
               className="block w-full text-left py-2 px-4 text-sm textDelete font-semibold hover:bg-gray-200"

@@ -11,27 +11,31 @@ import { User } from '@/interfaces/user/user';
 function NavbarSkeleton() {
     return (
         <div className="hidden md:flex items-center space-x-1">
-            <div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse"></div>
             <div className="flex space-x-2">
                 <div className="w-20 h-8 bg-gray-300 animate-pulse rounded"></div>
                 <div className="w-24 h-8 bg-gray-300 animate-pulse rounded"></div>
             </div>
+            <div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse"></div>
         </div>
     );
 }
 
-function NavbarSecondaryItem() {
-    const { currentUser, logout }  = useAuth();
+interface Props {
+    currentUser: User | null;
+    logout: () => void;
+}
+
+function NavbarSecondaryItem({currentUser, logout} : Props) {
     const [menuOpen, setMenuOpen] = useState(false);
     const router = useRouter();
     const currentPath = usePathname();
     const [isClient, setIsClient] = useState(false);
-    const [user, setUser] = useState<User | null>(null); // Estado inicial nulo para currentUser
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
         setIsClient(true);
         if (currentUser) {
-            setUser(currentUser); // Actualiza el estado del usuario una vez que se monte el componente
+            setUser(currentUser);
         }
     }, [currentUser]);
 

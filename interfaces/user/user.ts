@@ -5,7 +5,6 @@ export interface User {
     name: string,
     lastname: string,
     birthdate: Date,
-    password: string,
     role?: string,
     username?: string,
     createdat?: Date,

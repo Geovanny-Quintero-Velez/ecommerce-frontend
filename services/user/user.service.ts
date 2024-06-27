@@ -1,6 +1,22 @@
 import {User} from '@/interfaces/user/user';
+import  axios,  {AxiosInstance} from 'axios';
 
 export class UserService {
+    protected readonly axios: AxiosInstance;
+    public constructor(url: string) {
+        this.axios = axios.create(
+            {
+                baseURL: url,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                timeout: 3000,
+                timeoutErrorMessage: 'Request timed out'
+            }
+        )
+    }
+
     sampleUsers: User[] = [
         {
             userid: "a",
@@ -8,7 +24,6 @@ export class UserService {
             name: "John",
             lastname: "Doe",
             birthdate: new Date(),
-            password: "123",
             username: "JohnDoeGod"
         },
         {
@@ -17,7 +32,6 @@ export class UserService {
             name: "Mary",
             lastname: "Smidth",
             birthdate: new Date(),
-            password: "123",
             username: "MarySmidthGoddes"
         },
         {
@@ -26,7 +40,6 @@ export class UserService {
             name: "James",
             lastname: "Morgan",
             birthdate: new Date(),
-            password: "123",
             username: "JamesMorganGod"
         }
     ]
@@ -36,6 +49,16 @@ export class UserService {
     }
 
     public async getUserById(userId: string): Promise<User | undefined> {
-        return this.sampleUsers.find(user => user.userid === userId);
+        try {
+            const response = await this.axios.get(`${this.axios.defaults.baseURL}/user/${userId}`);
+            return response.data as User;
+        }catch (error: any) {
+            if (error.response) {
+                const errorMessage = error.response.data.message;
+                throw new Error(errorMessage);
+            } else {
+                throw error;
+            }
+        }
     }
 }
