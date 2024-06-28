@@ -5,10 +5,18 @@ import ProductCarousel from "@/components/home/ProductsCarousel";
 import { useFetchProducts } from "@/hooks/product/useFetchProducts";
 import { useEffect, useState } from "react";
 import ProductCarouselSkeleton from '@/components/skeletons/ProductCarouselSkeleton';
+import { useAuth }  from "@/context/UserContext";
+import { useCart } from "@/context/CartContext";
 
 export default function HomePage() {
     const { fetchProducts, loading, error } = useFetchProducts();
     const [products, setProducts] = useState<any | null>(null);
+    const { fetchCart } = useCart();
+    const { currentUser } = useAuth();
+
+    useEffect(() => {
+        fetchCart();
+      }, [currentUser]); 
 
     useEffect(() => {
         async function fetchProductData() {
@@ -18,6 +26,8 @@ export default function HomePage() {
 
         fetchProductData();
     }, []);
+
+
 
     return (
         <section>
