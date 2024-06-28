@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-  const { productid, imageurls, name, price, discount, rating } = product;
+  const { productid, images, name, price, discount, rating } = product;
 
   // Calcula las estrellas rellenadas y contorneadas según el rating decimal
   const filledStars = Math.floor(rating);
@@ -17,7 +17,7 @@ const ProductCard = ({ product }: Props) => {
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <img 
       className="w-full fixed-image" // Aplica la clase CSS
-      src={imageurls ? imageurls[0] : ""} 
+      src={images ? images[0].img : ""} 
       alt={name} 
       decoding="sync"
       fetchPriority="high"
@@ -28,7 +28,7 @@ const ProductCard = ({ product }: Props) => {
           {discount ? (
             <>
               <span className="mr-2 line-through text-gray-600">${price}</span>
-              <div className="deleteStandard font-semibold text-end w-10/12">%{(((price-discount)/price)*100).toFixed(1)}</div>
+              <div className="deleteStandard font-semibold text-end w-10/12">%{discount}</div>
             </>
           ) : (
             <span className="text-transparent font-bold">${price}</span>
@@ -36,12 +36,19 @@ const ProductCard = ({ product }: Props) => {
         </div>
         <div className="flex items-center">
         {discount ? (
-            <>
-              <span className="text-xl textStandard font-bold">${discount}</span>
-            </>
-          ) : (
-            <span className="text-xl textStandard font-bold">${price}</span>
-          )}
+              <>
+                <span className="text-gray-600 line-through">
+                  COP ${price}
+                </span>
+                <span className="text-lg font-bold text-green-600">
+                  COP ${(price*(1-(discount/100)))}
+                </span>
+              </>
+            ) : (
+              <span className="text-lg font-bold text-gray-800">
+                COP ${price}
+              </span>
+            )}
           <div className="w-10/12 flex items-center mr-2 justify-end">
             {[...Array(5)].map((_, index) => (
               <div key={index} className="relative">

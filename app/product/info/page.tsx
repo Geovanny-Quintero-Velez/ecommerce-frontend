@@ -15,27 +15,27 @@ import ProductSkeleton from "@/components/skeletons/ProductSkeleton";
 export default function ProductInfo() {
   const searchParams = useSearchParams();
   const productId = searchParams.get("productid") ?? "1";
+  const { fetchProductById, loading: productLoading, error: productError } = useFetchProducts();
+  const { fetchReviewsByProductId } = useFetchReviews();
   const [product, setProduct] = useState<Product | null>(null);
   const [reviews, setReviews] = useState<Review[] | null>(null);
 
   useEffect(() => {
-    async function fetchProduct() {
-      const { fetchProductById } = useFetchProducts();
+    async function fetchProductData() {
       const fetchedProduct = await fetchProductById(productId);
       setProduct(fetchedProduct);
     }
 
-    fetchProduct();
+    fetchProductData();
   }, [productId]);
 
   useEffect(() => {
-    async function fetchReviews() {
-      const { fetchReviewsByProductId } = useFetchReviews();
+    async function fetchReviewsData() {
       const fetchedReviews = await fetchReviewsByProductId(productId);
       setReviews(fetchedReviews);
     }
 
-    fetchReviews();
+    fetchReviewsData();
   }, [productId]);
 
   return (

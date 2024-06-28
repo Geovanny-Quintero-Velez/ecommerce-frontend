@@ -5,12 +5,11 @@ import Image from 'next/image';
 
 interface Props {
     product: Product;
-    handleProductClick: (productid: string) => void;
   }
 
 
-const CarouselProductCard = ({ product, handleProductClick }: Props) => {
-    const { imageurls, name, price, discount, rating } = product;
+const CarouselProductCard = ({ product }: Props) => {
+    const { images, name, price, discount, rating } = product;
           const filledStars = Math.floor(rating);
           const hasHalfStar = rating % 1 !== 0;
 
@@ -19,7 +18,7 @@ const CarouselProductCard = ({ product, handleProductClick }: Props) => {
               <div className="hover:cursor-pointer border rounded-lg overflow-hidden shadow-lg">
                 <Link href={`/product/info?productid=${product.productid}`} >
                   <Image
-                    src={imageurls ? imageurls[0] : ""}
+                    src={images ? images[0].img : ""}
                     alt={name}
                     width={300}
                     height={200}
@@ -31,7 +30,7 @@ const CarouselProductCard = ({ product, handleProductClick }: Props) => {
                       {discount ? (
                         <>
                           <span className="mr-2 line-through text-gray-600">${price}</span>
-                          <span className="textSecondary font-semibold">${discount}</span>
+                          <span className="textSecondary font-semibold">${(price*(1-(discount/100)))}</span>
                         </>
                       ) : (
                         <>
@@ -41,7 +40,7 @@ const CarouselProductCard = ({ product, handleProductClick }: Props) => {
                     </div>
                     <div className="h-4 mb-2 text-sm text-gray-500">
                       {discount && (
-                        <>%{(((price - discount) / price) * 100).toFixed(1)}</>
+                        <>%{discount}</>
                       )}
                     </div>
                     <div className="flex items-center">

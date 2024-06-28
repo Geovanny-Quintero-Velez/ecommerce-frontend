@@ -19,7 +19,7 @@ interface Props {
 export default function ProductDetails({ product }: Props) {
   if (!product) return null;
 
-  const [mainImage, setMainImage] = useState(product.imageurls ? product.imageurls[0] : "");
+  const [mainImage, setMainImage] = useState(product.images ? product.images[0].img : "");
   const { addToCart } = useCart(); 
 
   const filledStars = Math.floor(product.rating);
@@ -30,10 +30,10 @@ export default function ProductDetails({ product }: Props) {
       id: product.productid,
       name: product.name,
       price: product.discount || product.price,
-      imageUrl: product.imageurls? product.imageurls[0] : "",
+      imageUrl: product.images ? product.images[0].img : "",
       description: product.description || "",
-      category: "Default",
-      discountPrice: product.discount || undefined,
+      category: product.categories[0].category,
+      discountPercentage: product.discount || undefined,
       quantity: 1,
     });
   };
@@ -54,13 +54,13 @@ export default function ProductDetails({ product }: Props) {
             spaceBetween={10}
             slidesPerView={4}
           >
-            {product.imageurls?.map((src, index) => (
+            {product.images?.map((image, index) => (
               <SwiperSlide key={index}>
                 <img 
-                  src={src} 
+                  src={image.img} 
                   alt={`Product ${index}`} 
                   className="w-full h-20 object-cover rounded-lg cursor-pointer" 
-                  onClick={() => setMainImage(src)} 
+                  onClick={() => setMainImage(image.img)} 
                 />
               </SwiperSlide>
             ))}
@@ -96,9 +96,9 @@ export default function ProductDetails({ product }: Props) {
         <div className="mt-4">
           {product.discount?
           (<>
-            <p className="text-lg font-semibold text-red-500">{(1-product.discount/product.price).toFixed(2)}% OFF</p>
+            <p className="text-lg font-semibold text-red-500">{product.discount}% OFF</p>
             <p className="text-lg font-semibold line-through text-gray-500">${product.price}</p>
-            <p className="text-2xl font-bold text-green-600">COP ${product.discount}</p>
+            <p className="text-2xl font-bold text-green-600">COP ${(product.price*(1-(product.discount/100)))}</p>
           </>
           ):
             <p className="text-2xl font-bold textStandard">COP ${product.price}</p>

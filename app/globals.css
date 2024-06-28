@@ -132,3 +132,22 @@ td{
   white-space: nowrap;
   overflow-x: auto;
 }
+
+
+.product-carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slick-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slick-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

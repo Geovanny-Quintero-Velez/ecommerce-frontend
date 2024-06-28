@@ -19,7 +19,7 @@ export function useFetchProducts() {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const createProduct = async (product: Product) => {
         setLoading(true);
@@ -33,7 +33,7 @@ export function useFetchProducts() {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const updateProduct = async (product: Product) => {
         setLoading(true);
@@ -47,7 +47,7 @@ export function useFetchProducts() {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const fetchProductById = async (productId: string) => {
         setLoading(true);
@@ -61,7 +61,21 @@ export function useFetchProducts() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const fetchProductsByQuery = async (query: string) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const products = await productService.fetchProductsByQuery(query);
+            return products as Product[];
+        } catch (err: any) {
+            setError(err.message || 'Failed to fetch products');
+            return null;
+        } finally {
+            setLoading(false);
+        }
     }
 
-    return { fetchProductById, updateProduct, createProduct, loading, error, fetchProducts };
+    return { fetchProductsByQuery, fetchProductById, updateProduct, createProduct, loading, error, fetchProducts };
 }

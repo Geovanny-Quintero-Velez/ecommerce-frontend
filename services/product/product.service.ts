@@ -199,7 +199,17 @@ export class ProductService {
       return this.sampleProducts.find(product => product.productid === productId);
   }
 
-  public async getProductsByQuery(query: string): Promise<Product[]> {
-      return this.sampleProducts.filter(product => product.name.toLowerCase().includes(query.toLowerCase()));
+  public async fetchProductsByQuery(query: string): Promise<Product[]> {
+    try{
+      const response = await this.getAllProducts();
+      return response.filter(product => product.name.toLowerCase().includes(query.toLowerCase()));
+    } catch (error: any) {
+      if (error.response) {
+        const errorMessage = error.response.data.message;
+        throw new Error(errorMessage);
+      } else {
+          throw new Error('An unexpected error occurred while searching the products');
+      }
+    }
   }
 }

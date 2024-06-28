@@ -38,7 +38,7 @@ const CartCard = ({ product, removeProduct } : { product: CartProduct; removePro
     imageUrl,
     description,
     category,
-    discountPrice,
+    discountPercentage,
   } = product;
 
   return (
@@ -68,18 +68,18 @@ const CartCard = ({ product, removeProduct } : { product: CartProduct; removePro
         <div className="flex items-center justify-between mt-4">
           <QuantityPicker id={id} quantity={quantity} />
           <div className="flex flex-col items-end">
-            {discountPrice ? (
+            {discountPercentage ? (
               <>
                 <span className="text-gray-600 line-through">
-                  COP {price.toFixed(2)}
+                  COP ${price}
                 </span>
                 <span className="text-lg font-bold text-green-600">
-                  COP {discountPrice.toFixed(2)}
+                  COP ${(price*(1-(discountPercentage/100)))}
                 </span>
               </>
             ) : (
               <span className="text-lg font-bold text-gray-800">
-                COP {price.toFixed(2)}
+                COP ${price}
               </span>
             )}
           </div>

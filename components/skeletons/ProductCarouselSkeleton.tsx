@@ -5,7 +5,7 @@ const ProductCarouselSkeleton = () => {
   const skeletonItems = Array.from({ length: 4 });
 
   return (
-    <div className="product-carousel relative px-10 py-10 rounded-lg bg-white shadow-lg mt-16">
+    <div className="product-carousel relative px-10 py-10 rounded-lg bg-white shadow-lg mt-16 overflow-x-scroll">
       <div className="flex space-x-4">
         {skeletonItems.map((_, index) => (
           <div key={index} className="flex flex-col items-center p-2">
