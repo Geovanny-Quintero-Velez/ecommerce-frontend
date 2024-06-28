@@ -1,13 +1,22 @@
 import React from 'react';
 import Link from 'next/link';
 
-const Sidebar = () => {
+interface Props {
+    user: {
+        name: string;
+        lastname: string;
+        email: string;
+        role?:string;
+    };
+}
+
+const Sidebar = ({user} : Props) => {
     return (
         <div className="backgroundPrimary text-white w-64 p-4">
             <div className="flex flex-col items-center mb-8">
                 <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="Profile Picture" className="w-24 h-24 rounded-full mb-4" />
-                <h2 className="text-xl font-semibold">John Doe</h2>
-                <p className="text-sm">Admin</p>
+                <h2 className="text-xl font-semibold">{user.name} {user.lastname}</h2>
+                <p className="text-sm">{user.role? user.role.toUpperCase() : "User"}</p>
             </div>
             <nav>
                 <ul className="space-y-2">
