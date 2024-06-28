@@ -35,7 +35,7 @@ const Page = () => {
 
     return (
         <div className="flex justify-center items-center h-full">
-            <div className="rounded-tl-lg rounded-tr-lg w-11/12 h-5/6 overflow-x-auto">
+            <div className="rounded-tl-lg rounded-tr-lg w-11/12 h-5/6 overflow-x-scroll">
                 <div className="flex justify-between items-center bg-white h-16 p-8">
                     <h2 className="text-lg font-bold">Manage products</h2>
                     <div className="flex space-x-4 h-10">
