@@ -57,10 +57,10 @@ export class CategoryService {
         if (error.response) {
             const errorMessage = error.response.data.message;
             throw new Error(errorMessage);
-        } else {
-            throw new Error('An unexpected error occurred while creating the category');
+            } else {
+                throw new Error('An unexpected error occurred while creating the category');
+            }
         }
-    }
     }
 
     public async updateCategory(category: Category): Promise<Category | undefined> {

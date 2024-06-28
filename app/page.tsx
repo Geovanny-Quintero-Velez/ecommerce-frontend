@@ -1,12 +1,21 @@
+"use client"
 import Navbar from "@/components/general/navbar/Navbar";
 import ProductCarousel from "@/components/home/ProductsCarousel";
 import { useFetchProducts } from "@/hooks/product/useFetchProducts";
+import { useEffect, useState } from "react";
 
-export default async function HomePage() {
-  const { fetchProducts } = useFetchProducts();
-  const products = await fetchProducts();
 
-  if (!products) return <p>Products couldn't be loaded correctly</p>;
+export default function HomePage() {
+  const [products, setProducts] = useState<any | null>(null);
+  useEffect(() => {
+    async function fetchProduct() {
+      const { fetchProducts } = useFetchProducts();
+      const fetchedProducts = await fetchProducts();
+      setProducts(fetchedProducts);
+    }
+
+    fetchProduct();
+  }, []);
 
   return (
     <section>
@@ -16,8 +25,17 @@ export default async function HomePage() {
           Bienvenido a Mi Tienda Online
         </h1>
         <p className="text-lg mb-4">Descubre nuestros productos destacados:</p>
-        <ProductCarousel products={products} />
-        <ProductCarousel products={products} />
+        {
+          products?(
+            <>
+              <ProductCarousel products={products} />
+              <ProductCarousel products={products} />
+            </>
+          ):(
+            <div>loading</div>
+          )
+        }
+        
       </div>
     </section>
   );
