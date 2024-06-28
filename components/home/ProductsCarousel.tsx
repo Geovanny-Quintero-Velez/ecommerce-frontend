@@ -5,7 +5,6 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { Product } from '@/interfaces/product/product';
 import CarouselProductCard from './CarouselProductCard';
 import { useRouter } from "next/navigation";
-import {IoHome} from 'react-icons/io5';
 
 interface Props {
   products: Product[];

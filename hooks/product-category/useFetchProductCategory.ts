@@ -21,6 +21,20 @@ export const useFetchProductCategory = () => {
         }
     };
 
-    return { createProductCategory, loading, error };
+    const updateProductCategory = async (toDelete: ProductCategory, toCreate: ProductCategory): Promise<ProductCategory | null> => {
+        setLoading(true);
+        setError(null);
+        try {
+            const category = await productCategoryService.updateProductCategory(toDelete, toCreate);
+            return category as ProductCategory;
+        } catch (err: any) {
+            setError(err.message || 'Failed to update product category');
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return { updateProductCategory, createProductCategory, loading, error };
     
 }

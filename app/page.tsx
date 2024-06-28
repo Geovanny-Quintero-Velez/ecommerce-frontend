@@ -1,12 +1,14 @@
 "use client"
 import Navbar from "@/components/general/navbar/Navbar";
 import ProductCarousel from "@/components/home/ProductsCarousel";
-import { useFetchProducts } from "@/hooks/product/useFetchProducts";
+import { useFetchProducts } from "@/hooks/product/useFetchAllProducts";
 import { useEffect, useState } from "react";
+import  ProductCarouselSkeleton from '@/components/skeletons/ProductCarouselSkeleton';
 
 
 export default function HomePage() {
   const [products, setProducts] = useState<any | null>(null);
+  
   useEffect(() => {
     async function fetchProduct() {
       const { fetchProducts } = useFetchProducts();
@@ -32,7 +34,11 @@ export default function HomePage() {
               <ProductCarousel products={products} />
             </>
           ):(
-            <div>loading</div>
+            <>
+            <ProductCarouselSkeleton />
+            <ProductCarouselSkeleton />
+            </>
+            
           )
         }
         

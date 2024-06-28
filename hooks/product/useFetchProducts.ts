@@ -1,22 +1,39 @@
+import { useState } from 'react';
 import { Product } from '@/interfaces/product/product';
 import { ProductService } from '@/services/product/product.service';
 
-export const useFetchProducts = () => {
+export function useFetchProducts() {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const productService = new ProductService();
+
     const fetchProducts = async () => {
-        const products = await productService.getProducts();
-        return products as Product[];
+        setLoading(true);
+        setError(null);
+        try {
+            const products = await productService.getAllProducts();
+            return products as Product[];
+        } catch (err: any) {
+            setError(err.message || 'Failed to fetch products');
+            return null;
+        } finally {
+            setLoading(false);
+        }
     }
 
-    const fetchProductById = async (productId: string) => {
-        const product = await productService.getProductById(productId);
-        return product as Product;
+    const createProduct = async (product: Product) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const newProduct = await productService.createProduct(product);
+            return newProduct as Product;
+        } catch (err: any) {
+            setError(err.message || 'Failed to create product');
+            return null;
+        } finally {
+            setLoading(false);
+        }
     }
 
-    const fetchProductsByQuery = async (query: string) => {
-        const products = await productService.getProductsByQuery(query);
-        return products as Product[];
-    }
-
-    return { fetchProducts, fetchProductById, fetchProductsByQuery };
+    return { createProduct, loading, error, fetchProducts };
 }

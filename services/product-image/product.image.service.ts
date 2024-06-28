@@ -1,8 +1,8 @@
 import  axios,  {AxiosInstance} from 'axios';
 import { getAuthHeader } from '@/utils/auth/get-auth-header';
-import {ProductCategory} from '@/interfaces/product-category/product.category';
+import {ProductImage} from '@/interfaces/product-image/product.image';
 
-export class ProductCategoryService {
+export class ProductImageService {
     protected readonly axios: AxiosInstance;
     public constructor() {
         const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -21,40 +21,40 @@ export class ProductCategoryService {
         });
     }
 
-    public async createProductCategory(productCategory: ProductCategory): Promise<ProductCategory> {
+    public async createProductImage(productImage: ProductImage): Promise<ProductImage> {
         try{
-            const response = await this.axios.post(`${this.axios.defaults.baseURL}/product-category`,productCategory)
+            const response = await this.axios.post(`${this.axios.defaults.baseURL}/product-image`,productImage)
             console.log("response", response.data)
-            return response.data as ProductCategory;
+            return response.data as ProductImage;
         }catch (error: any) {
             if (error.response) {
                 const errorMessage = error.response.data.message;
                 throw new Error(errorMessage);
             } else {
-                throw new Error('An unexpected error occurred while creating the product-category');
+                throw new Error('An unexpected error occurred while creating the product-image');
             }
         }
 
     }
-    
-    private async deleteProductCategory(productCategory: ProductCategory): Promise<boolean> {
+
+    public async deleteProductImage(productImage: ProductImage): Promise<boolean> {
         try{
-            await this.axios.delete(`${this.axios.defaults.baseURL}/product-category/${productCategory.categoryid}/${productCategory.productid}`)
+            await this.axios.delete(`${this.axios.defaults.baseURL}/product-image/${productImage.productid}/${productImage.img}`)
             return true;
         }catch (error: any) {
             if (error.response) {
                 const errorMessage = error.response.data.message;
                 throw new Error(errorMessage);
             } else {
-                throw new Error('An unexpected error occurred while deleting the product-category');
+                throw new Error('An unexpected error occurred while deleting the product-image');
             }
         }
     }
 
-    public async updateProductCategory(productCategoryToDelete: ProductCategory, productCategoryToCreate: ProductCategory): Promise<ProductCategory> {
+    public async updateProductImage(productImageToDelete: ProductImage, productImageToCreate: ProductImage): Promise<ProductImage> {
         try{
-            await this.deleteProductCategory(productCategoryToDelete);
-            const createResponse = await this.createProductCategory(productCategoryToCreate);
+            await this.deleteProductImage(productImageToDelete);
+            const createResponse = await this.createProductImage(productImageToCreate);
             console.log("response", createResponse)
             return createResponse;
         }catch (error: any) {
@@ -62,8 +62,9 @@ export class ProductCategoryService {
                 const errorMessage = error.response.data.message;
                 throw new Error(errorMessage);
             } else {
-                throw new Error('An unexpected error occurred while updating the product-category');
+                throw new Error('An unexpected error occurred while updating the product-image');
             }
         }
     }
+
 }

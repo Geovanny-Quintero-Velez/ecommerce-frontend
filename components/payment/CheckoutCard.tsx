@@ -47,7 +47,7 @@ const CheckoutCard = ( {cart}: Props) => {
         <div>COP {(totalPrice + serviceFee).toFixed(2)}</div>
       </div>
       <div className="flex w-full justify-center mt-4">
-        <Link href={"http://localhost:3000/delivery"} className="p-2 rounded-lg flex justify-center items-center backgroundWarning w-full mr-2 text-xl font-bold">
+        <Link href={"/delivery"} className="p-2 rounded-lg flex justify-center items-center backgroundWarning w-full mr-2 text-xl font-bold">
           Pay now
         </Link>
       </div>

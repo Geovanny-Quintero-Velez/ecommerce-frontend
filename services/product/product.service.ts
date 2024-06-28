@@ -148,6 +148,19 @@ export class ProductService {
       }
   }
   
+  public async getAllProducts(): Promise<Product[]> {
+    try{
+      const response = await this.axios.get(`${this.axios.defaults.baseURL}/product`);
+      return response.data;
+    }catch (error: any) {
+        if (error.response) {
+          const errorMessage = error.response.data.message;
+          throw new Error(errorMessage);
+        } else {
+            throw new Error('An unexpected error occurred while fetching the products');
+        }
+    }
+  }
   
   public async getProducts(): Promise<Product[]> {
       return this.sampleProducts;
