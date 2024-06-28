@@ -81,12 +81,7 @@ export default function LoginCard({ login, saveCurrentUser, fetchUserById, loadi
         </button>
       </form>
       <div className="mt-6 text-center">
-        <p className="text-sm mb-5">You can also login with</p>
-        <button className="mt-2 flex items-center justify-center border border-gray-300 p-2 pl-10 pr-10 rounded" style={{ width: 'fit-content', margin: '0 auto' }}>
-          <FaGoogle className="text-2xl" />
-          <span className="ml-2">Google</span>
-        </button>
-        <p className="mt-4 text-sm">You don't have an account yet? <Link href="/users/register" className="font-bold">Register now</Link></p>
+        <p className="mt-4 text-sm">You don t have an account yet? <Link href="/users/register" className="font-bold">Register now</Link></p>
       </div>
     </div>
   );

@@ -13,14 +13,16 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 interface Props {
-  product?: Product;
+  product: Product;
 }
 
 export default function ProductDetails({ product }: Props) {
-  if (!product) return null;
+  const { addToCart } = useCart();
 
   const [mainImage, setMainImage] = useState(product.images ? product.images[0].img : "");
-  const { addToCart } = useCart(); 
+
+  if (!product) return null;
+
 
   const filledStars = Math.floor(product.rating);
   const hasHalfStar = product.rating % 1 !== 0;
@@ -33,7 +35,7 @@ export default function ProductDetails({ product }: Props) {
       imageUrl: product.images ? product.images[0].img : "",
       description: product.description || "",
       category: product.categories[0].category,
-      discountPercentage: product.discount || undefined,
+      discountPercentage: product.discount || 0,
       quantity: 1,
     });
   };
