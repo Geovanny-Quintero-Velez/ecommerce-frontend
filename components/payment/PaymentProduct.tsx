@@ -12,6 +12,8 @@ const PaymentProduct = ({
     price,
     discountPrice,
   } = product;
+
+
   return (
     <div className="flex backgroundBackground rounded-lg p-4 ">
       <div className="flex w-1/2 text-lg font-medium text-Standard justify-start">{name}</div>
