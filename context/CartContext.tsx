@@ -36,7 +36,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       const { Authorization } = getAuthHeader();
-      const response = await fetch(`http://localhost:3000/api/v1/order/user/${currentUser.userid}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/order/user/${currentUser.userid}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     try {
         const { Authorization } = getAuthHeader();
-      await fetch('http://localhost:3000/api/v1/shopping-cart/item', {
+      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/shopping-cart/item`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const removeFromCart = async (id: string) => {
     try {
       const { Authorization } = getAuthHeader();
-    await fetch(`http://localhost:3000/api/v1/shopping-cart/item/${orderId}/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/shopping-cart/item/${orderId}/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

@@ -5,6 +5,7 @@ import { useAuth } from '@/context/UserContext';
 
 const ProfilePage = () => {
   const { currentUser } = useAuth();
+  
 
   return (
         <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
