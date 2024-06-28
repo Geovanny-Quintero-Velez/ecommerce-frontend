@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import UserProfile from '@/components/users/management/profile/UserProfile';
 import { useAuth } from '@/context/UserContext';
@@ -12,7 +13,7 @@ const ProfilePage = () => {
             ) : (
                 <p>No user logged in</p>
             )}
-        </div>    
+        </div>  
   );
 };
 
