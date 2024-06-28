@@ -4,6 +4,6 @@ export interface CreateProduct {
     description: string;
     price: number;
     stock: number;
-    keywords?: string[];
+    keyword?: string[];
     discount?: number;
 }

@@ -15,7 +15,7 @@ export interface Product {
     stock: number;
     rating: number;
     reviewscount?: number;
-    keywords: string[];
+    keyword: string[];
     discount?: number;
     createdat?: Date;
     deletedat?: Date;

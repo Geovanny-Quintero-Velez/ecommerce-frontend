@@ -37,15 +37,12 @@ const ProductCard = ({ product }: Props) => {
         <div className="flex items-center">
         {discount ? (
               <>
-                <span className="text-gray-600 line-through">
-                  COP ${price}
-                </span>
-                <span className="text-lg font-bold text-green-600">
+                <span className="text-base font-bold textSecondary ">
                   COP ${(price*(1-(discount/100)))}
                 </span>
               </>
             ) : (
-              <span className="text-lg font-bold text-gray-800">
+              <span className="text-base font-bold text-gray-800 ">
                 COP ${price}
               </span>
             )}

@@ -5,10 +5,11 @@ import Image from 'next/image';
 
 interface Props {
     product: Product;
+    handleProductClick: (productid: string) => void;
   }
 
 
-const CarouselProductCard = ({ product }: Props) => {
+const CarouselProductCard = ({ product, handleProductClick }: Props) => {
     const { images, name, price, discount, rating } = product;
           const filledStars = Math.floor(rating);
           const hasHalfStar = rating % 1 !== 0;
@@ -30,7 +31,7 @@ const CarouselProductCard = ({ product }: Props) => {
                       {discount ? (
                         <>
                           <span className="mr-2 line-through text-gray-600">${price}</span>
-                          <span className="textSecondary font-semibold">${(price*(1-(discount/100)))}</span>
+                          <span className="textSecondary font-semibold">${price * (1-(discount/100))}</span>
                         </>
                       ) : (
                         <>

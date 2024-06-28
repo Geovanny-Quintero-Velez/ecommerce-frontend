@@ -8,12 +8,15 @@ import { useFetchProductCategory } from "@/hooks/product-category/useFetchProduc
 import { Category } from "@/interfaces/category/category";
 import { ProductCategory } from "@/interfaces/product-category/product.category";
 import { CreateProduct } from "@/interfaces/product/create-product";
+import { ProductImage } from "@/interfaces/product-image/product.image";
+import { useFetchProductImage } from "@/hooks/product-image/useProductImage";
 
 const CreateProductPage = () => {
     const router = useRouter();
     const { fetchAllCategories, loading: categoriesLoading, error: categoriesError } = useFetchCategories();
     const { createProduct, loading: productLoading, error: productError } = useFetchProducts();
     const { createProductCategory, loading: productCategoryLoading, error: productCategoryError } = useFetchProductCategory();
+    const { createProductImage, loading: productImageLoading, error: productImageError } = useFetchProductImage();
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -23,6 +26,7 @@ const CreateProductPage = () => {
         price: 0,
         stock: 0,
         discount: 0,
+        keyword: [''],
     });
 
     useEffect(() => {
@@ -46,23 +50,47 @@ const CreateProductPage = () => {
         setSelectedCategory(e.target.value);
     };
 
+    const handleKeywordChange = (index: number, value: string) => {
+        const newKeyword = [...formData.keyword];
+        newKeyword[index] = value;
+        setFormData({ ...formData, keyword: newKeyword });
+    };
+
+    const handleAddKeyword = () => {
+        setFormData({ ...formData, keyword: [...formData.keyword, ''] });
+    };
+
+    const handleRemoveKeyword = (index: number) => {
+        const newKeyword = [...formData.keyword];
+        newKeyword.splice(index, 1);
+        setFormData({ ...formData, keyword: newKeyword });
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const newProduct: CreateProduct = {
             ...formData,
             price: Number(formData.price),
             stock: Number(formData.stock),
-            discount: Number(formData.discount)
+            discount: Number(formData.discount),
+            keyword: formData.keyword.filter(kw => kw.trim() !== '') // Filter out empty keyword
         };
-        console.log("newProduct", newProduct)
         const createdProduct = await createProduct(newProduct as any);
         if (createdProduct && selectedCategory) {
             const newProductCategory: ProductCategory = {
                 productid: createdProduct.productid,
                 categoryid: selectedCategory
             };
-            console.log("newProductCategory", newProductCategory)
+
+            const newProductImage: ProductImage = {
+                productid: createdProduct.productid,
+                img: 'https://eadn-wc02-3894996.nxedge.io/wp-content/uploads/2021/01/IMG_9399-2-1024x682.jpeg',
+                position: 1
+            };
+
             await createProductCategory(newProductCategory);
+            await createProductImage(newProductImage);
+            
             router.push('/admin/product');
         }
     };
@@ -142,7 +170,6 @@ const CreateProductPage = () => {
                             required
                         />
                     </div>
-                    
                     <div className="flex flex-col m-1 ml-4">
                         <label className="text-black font-bold" htmlFor="category">Category</label>
                         <select
@@ -159,6 +186,36 @@ const CreateProductPage = () => {
                                 </option>
                             ))}
                         </select>
+                    </div>
+                    <div className="flex flex-col m-1 ml-4">
+                        <label className="text-black font-bold" htmlFor="keyword">Keyword</label>
+                        {formData.keyword.map((keyword, index) => (
+                            <div key={index} className="flex items-center mb-2">
+                                <input
+                                    className="h-10 w-full md:w-11/12 bg-background pl-2 mr-2"
+                                    placeholder='Enter a keyword'
+                                    type="text"
+                                    name={`keyword-${index}`}
+                                    value={keyword}
+                                    onChange={(e) => handleKeywordChange(index, e.target.value)}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="bg-red-600 text-white px-2 py-1 rounded"
+                                    onClick={() => handleRemoveKeyword(index)}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            className="bg-blue-600 text-white px-4 py-2 rounded"
+                            onClick={handleAddKeyword}
+                        >
+                            Add Keyword
+                        </button>
                     </div>
                     <div className="col-span-2 bg-primary py-2 pr-10 flex justify-end items-center rounded-bl-lg rounded-br-lg">
                         <button

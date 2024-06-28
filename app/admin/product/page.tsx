@@ -91,7 +91,7 @@ const Page = () => {
                                     <td className="px-4 py-2">{product.lastmodifiedby}</td>
                                     <td className="px-4 py-2">{new Date(product.lastmodifiedat).toLocaleDateString()}</td>
                                     <td className="px-4 py-2">
-                                        {product.keywords?.join(", ")}
+                                        {product.keyword?.join(", ")}
                                     </td>
                                     <td className="px-4 py-2">
                                         {product.categories?.map((category: { category: any; }) => category.category).join(", ")}
