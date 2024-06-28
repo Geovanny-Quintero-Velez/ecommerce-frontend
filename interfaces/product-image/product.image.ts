@@ -1,5 +1,5 @@
 export interface ProductImage {
-    productid: number;
+    productid: string;
     img: string;
-    position: string;
+    position: number;
 }

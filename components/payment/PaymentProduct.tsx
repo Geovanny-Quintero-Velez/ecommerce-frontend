@@ -23,10 +23,11 @@ const PaymentProduct = ({
       <div className="flex w-1/2 justify-end">
         {discountPrice ? (
           <span className="text-lg font-bold text-Standard">
-            COP {discountPrice.toFixed(2)}
+            COP {discountPrice}
           </span>
         ) : (
           <span className="text-lg font-bold text-Standard">
+            COP {price}
             COP {validPrice.toFixed(2)}
           </span>
         )}

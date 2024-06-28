@@ -23,8 +23,9 @@ export class ProductImageService {
 
     public async createProductImage(productImage: ProductImage): Promise<ProductImage> {
         try{
+            console.log("productImage", productImage)
             const response = await this.axios.post(`${this.axios.defaults.baseURL}/product-image`,productImage)
-            console.log("response", response.data)
+            console.log("response", response)
             return response.data as ProductImage;
         }catch (error: any) {
             if (error.response) {

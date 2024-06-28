@@ -6,6 +6,7 @@ import { AuthService } from '@/services/auth/auth.service';
 import { CreateUser } from '@/interfaces/user/create-user';
 import { useRouter } from "next/navigation";
 import Cookies from 'js-cookie';
+import { useCart } from '@/context/CartContext';
 
 export const useAuthentication = () => {
   const [loading, setLoading] = useState(false);
@@ -50,9 +51,12 @@ export const useAuthentication = () => {
     }
   };
 
+  const { clearCart } = useCart();
+
   const logout = () => {
     Cookies.remove('currentUser');
     Cookies.remove('token');
+    clearCart();
   };
 
   return { login, register, logout, loading, error };

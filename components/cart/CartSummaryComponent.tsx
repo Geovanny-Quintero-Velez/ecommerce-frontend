@@ -5,7 +5,7 @@ export default function CartSummaryComponent() {
   const { cart, clearCart } = useCart();
 
   const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalPrice = cart.reduce((acc, item) => acc + (item.price *(1-item.discountPercentage/100)) * item.quantity, 0);
   const serviceFee = 20000; // Puedes ajustar este valor según sea necesario
 
   return (
@@ -37,12 +37,7 @@ export default function CartSummaryComponent() {
                 Do you want to explore more? <a href="/" className="textSecondary font-bold">Return to the store</a>
               </p>
             </div>
-          <button
-            onClick={clearCart}
-            className="mt-4 w-full bg-red-500 text-white py-2 rounded-lg deleteButton"
-          >
-            Clear Cart
-          </button>
+          
         </div>
       )}
     </div>

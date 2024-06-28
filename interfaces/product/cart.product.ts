@@ -5,6 +5,6 @@ export interface CartProduct {
     imageUrl: string;
     description: string;
     category: string;
-    discountPercentage?: number;
+    discountPercentage: number;
     quantity: number; 
 }

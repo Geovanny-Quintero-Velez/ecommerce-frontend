@@ -133,21 +133,8 @@ td{
   overflow-x: auto;
 }
 
-
-.product-carousel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.three-icons{
+  width: 7rem;
+  min-width: 7rem;
 }
 
-.slick-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.slick-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}

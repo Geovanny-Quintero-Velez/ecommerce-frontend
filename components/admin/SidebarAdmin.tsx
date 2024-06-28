@@ -15,7 +15,7 @@ export default function SidebarAdmin() {
         <div className="rounded-full bg-background w-16 h-16 flex justify-center items-center">
           <Image src={logo} alt="Brand logo" className="w-12 h-12" />
         </div>
-        <h1 className="text-background font-bold text-2xl ml-4">Fooddy's</h1>
+        <h1 className="text-background font-bold text-2xl ml-4">Fooddy s</h1>
       </Link>
       <div className="space-y-4">
         <Link href="/admin/user" className="w-full flex flex-row items-center justify-start gap-8 text-background font-bold text-xl py-4 pl-8 hover:bg-black hover:text-white hover:invert">

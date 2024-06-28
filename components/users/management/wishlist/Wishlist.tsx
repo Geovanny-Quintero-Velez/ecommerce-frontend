@@ -1,13 +1,9 @@
 import React from 'react';
-import { Product } from '@/interfaces/product/product';   
 
-
-interface Props {
-    products: Product[];
-}
-
-export default function Wishlist ({ products }: Props) {
+export default function Wishlist () {
   return (
+    <></>
+    /*
     <div className="p-4 bg-white rounded-lg shadow-md">
       <h3 className="text-xl font-semibold mb-4">Mi Wishlist</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -21,5 +17,6 @@ export default function Wishlist ({ products }: Props) {
         ))}
       </div>
     </div>
+    */
   );
 };

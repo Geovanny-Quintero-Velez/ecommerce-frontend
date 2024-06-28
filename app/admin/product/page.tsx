@@ -91,7 +91,7 @@ const Page = () => {
                                     <td className="px-4 py-2">{product.lastmodifiedby}</td>
                                     <td className="px-4 py-2">{new Date(product.lastmodifiedat).toLocaleDateString()}</td>
                                     <td className="px-4 py-2">
-                                        {product.keywords?.join(", ")}
+                                        {product.keyword?.join(", ")}
                                     </td>
                                     <td className="px-4 py-2">
                                         {product.categories?.map((category: { category: any; }) => category.category).join(", ")}
@@ -111,7 +111,7 @@ const Page = () => {
                         </tbody>
                     </table>
                 )}
-                <div className="rounded-bl-lg rounded-br-lg bg-primary py-2 pr-10 flex justify-center items-center w-full">
+                <div className="rounded-bl-lg rounded-br-lg bg-primary py-2 pr-10 flex justify-end items-center w-screen pagination-container">
                     <button
                         onClick={() => currentPage > 1 && paginate(currentPage - 1)}
                         className="mx-1 px-2 pb-1 text-background text-3xl font-bold"
