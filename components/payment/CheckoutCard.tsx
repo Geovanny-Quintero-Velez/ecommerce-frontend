@@ -7,12 +7,15 @@ import Link from "next/link";
 import axios from "axios";
 import dropin, { Dropin } from 'braintree-web-drop-in';
 import Cookies from 'js-cookie';
+import { useRouter } from "next/router";
 
 interface Props {
   cart: CartProduct[];
 }
 
 const CheckoutCard = ({ cart }: Props) => {
+
+  const router = useRouter();
 
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -95,6 +98,8 @@ const CheckoutCard = ({ cart }: Props) => {
       });
 
       console.log('Payment processed successfully:', response.data);
+       // Navegar a la página de éxito
+       router.push('/delivery'); // Cambia '/delivery' por la ruta a la página de éxito
     } catch (error) {
       console.error('Error processing payment:', error);
     }
