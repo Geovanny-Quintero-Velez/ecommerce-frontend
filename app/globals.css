@@ -133,4 +133,8 @@ td{
   overflow-x: auto;
 }
 
+.three-icons{
+  width: 7rem;
+  min-width: 7rem;
+}
 

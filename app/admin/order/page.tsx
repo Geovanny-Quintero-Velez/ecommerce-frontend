@@ -1,27 +1,41 @@
-'use client'
-import React, { useState } from "react";
-import Image from "next/image";
+'use client';
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useFetchOrders } from '@/hooks/order/useFetchOrders';
+import { Order } from '@/interfaces/order/order';
+import { MdModeEdit, MdDelete, MdInfoOutline } from "react-icons/md";
 
-const orders = [
-    {
-        orderId:'',
-        userId:'',
-        price:'',
-        status:'',
-        createdAt:'',
-        deletedAt:'',
-    },
-];
-
-const Page = () => {
+const AdminOrderPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
+    const { fetchAllOrders, loading, error, deleteOrder } = useFetchOrders();
+    const [orders, setOrders] = useState<Order[]>([]);
+
+    useEffect(() => {
+        const getOrders = async () => {
+            const fetchedOrders = await fetchAllOrders();
+            if (fetchedOrders) {
+                setOrders(fetchedOrders);
+            }
+        };
+        getOrders();
+    }, []);
+
+    const handleDeleteButton = async (orderId: string) => {
+        if (window.confirm("Are you sure you want to delete this order?")) {
+            await deleteOrder(orderId);
+            // Después de eliminar, actualizar la lista de órdenes
+            const updatedOrders = await fetchAllOrders();
+            if (updatedOrders) {
+                setOrders(updatedOrders);
+            }
+        }
+    }
 
     // Calcular el índice de los usuarios a mostrar
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentElement = orders.slice(indexOfFirstItem, indexOfLastItem);
+    const currentOrders = orders.slice(indexOfFirstItem, indexOfLastItem);
 
     // Calcular el número total de páginas
     const totalPages = Math.ceil(orders.length / itemsPerPage);
@@ -29,13 +43,19 @@ const Page = () => {
     // Función para cambiar de página
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
     return (
         <div className="flex justify-center items-center h-full">
             <div className="rounded-tl-lg rounded-tr-lg w-11/12 h-5/6 overflow-x-auto">
                 <div className="flex justify-between items-center bg-white h-16 p-8">
                     <h2 className="text-lg font-bold">Manage orders</h2>
-                    <div className="flex space-x-4 h-10">
-                    </div>
                 </div>
                 <table className="w-full h-4/6 border-collapse">
                     <thead>
@@ -50,21 +70,25 @@ const Page = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentElement.map((order) => (
-                            <tr key={order.orderId} className="bg-gray-100 hover:bg-gray-200">
-                                <td className="px-4 py-2">{order.orderId}</td>
-                                <td className="px-4 py-2">{order.userId}</td>
+                        {currentOrders.map((order) => (
+                            <tr key={order.orderid} className="bg-gray-100 hover:bg-gray-200">
+                                <td className="px-4 py-2">{order.orderid}</td>
+                                <td className="px-4 py-2">{order.userid}</td>
                                 <td className="px-4 py-2">{order.price}</td>
                                 <td className="px-4 py-2">{order.status}</td>
-                                <td className="px-4 py-2">{order.createdAt}</td>
-                                <td className="px-4 py-2">{order.deletedAt}</td>
-                                <td className="flex justify-between items-center">
-                                <Link href="#" className="block w-8 h-8 relative">
-                                    <Image src="/edit.png" alt="edit icon" width={32} height={32} />
-                                </Link>
-                                <Link href="#" className="block w-8 h-8 relative">
-                                    <Image src="/trash.png" alt="delete icon" width={32} height={32} />
-                                </Link>
+                                <td className="px-4 py-2">{order.createdat ? new Date(order.createdat).toLocaleDateString(): ''}</td>
+                                <td className="px-4 py-2">{order.deletedat ? new Date(order.deletedat).toLocaleDateString() : ''}</td>
+                                <td className="flex justify-between items-center three-icons">
+
+                                    <Link href={`/admin/order/detail/[id]?id=${order.orderid}`} className="block w-8 h-8 relative">
+                                        <MdInfoOutline className="text-3xl infoStandard"/>
+                                    </Link>
+                                    <Link href={`/admin/order/[id]?id=${order.orderid}`} className="block w-8 h-8 relative">
+                                        <MdModeEdit className="text-3xl textWarning"/>
+                                    </Link>
+                                    <button onClick={() => handleDeleteButton(order.orderid)} className="block w-8 h-8 relative">
+                                        <MdDelete className="text-3xl textDelete" />
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -78,17 +102,7 @@ const Page = () => {
                     >
                         &lt;
                     </button>
-                    {totalPages == 1 && (
-                        <>
-                           <button
-                                onClick={() => paginate(1)}
-                                className={`mx-1 px-3 py-1 border rounded-full bg-background text-primary`}
-                            >
-                                1
-                            </button> 
-                        </>
-                    )}
-                    {totalPages >1 && totalPages < 5 && Array.from({ length: totalPages }, (_, index) => (
+                    {totalPages > 1 && Array.from({ length: totalPages }, (_, index) => (
                         <button
                             key={index + 1}
                             onClick={() => paginate(index + 1)}
@@ -97,67 +111,6 @@ const Page = () => {
                             {index + 1}
                         </button>
                     ))}
-                    {totalPages > 4 && (
-                        <>
-                            {/* Mostrar primera página si no es la actual */}
-                            {currentPage > 1 && (
-                                <button
-                                    onClick={() => paginate(1)}
-                                    className={`mx-1 px-3 py-1 border rounded-full bg-primary text-background`}
-                                >
-                                    1
-                                </button>
-                            )}
-
-                            {/* Mostrar puntos suspensivos si hay más de 3 páginas */}
-                            {currentPage > 2 && (
-                                <span className="mx-1 px-3 py-1 text-background text-3xl font-bold self-center">...</span>
-                            )}
-
-                            {/* Mostrar página anterior si no es la primera */}
-                            {currentPage > 2 && (
-                                <button
-                                    onClick={() => paginate(currentPage - 1)}
-                                    className={`mx-1 px-3 py-1 border rounded-full bg-primary text-background`}
-                                >
-                                    {currentPage - 1}
-                                </button>
-                            )}
-
-                            {/* Mostrar página actual */}
-                            <button
-                                onClick={() => paginate(currentPage)}
-                                className={`mx-1 px-3 py-1 border rounded-full bg-background text-primary`}
-                            >
-                                {currentPage}
-                            </button>
-
-                            {/* Mostrar página siguiente si no es la última */}
-                            {currentPage < totalPages - 1 && (
-                                <button
-                                    onClick={() => paginate(currentPage + 1)}
-                                    className={`mx-1 px-3 py-1 border rounded-full bg-primary text-background`}
-                                >
-                                    {currentPage + 1}
-                                </button>
-                            )}
-
-                            {/* Mostrar puntos suspensivos si hay más de 3 páginas */}
-                            {currentPage < totalPages - 1 && (
-                                <span className="mx-1 px-3 py-1 text-background text-3xl font-bold self-center">...</span>
-                            )}
-
-                            {/* Mostrar última página si no es la actual */}
-                            {currentPage < totalPages && (
-                                <button
-                                    onClick={() => paginate(totalPages)}
-                                    className={`mx-1 px-3 py-1 border rounded-full bg-primary text-background`}
-                                >
-                                    {totalPages}
-                                </button>
-                            )}
-                        </>
-                    )}
                     <button
                         onClick={() => currentPage < totalPages && paginate(currentPage + 1)}
                         className="mx-1 px-2 pb-1 text-background text-3xl font-bold"
@@ -171,4 +124,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default AdminOrderPage;
