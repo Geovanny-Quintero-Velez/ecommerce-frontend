@@ -10,6 +10,7 @@ export class UserService {
             throw new Error('The NEXT_PUBLIC_BASE_URL environment variable is not defined');
         }
         const { Authorization } = getAuthHeader();
+        console.log('Authorization', Authorization)
         this.axios = axios.create({
             baseURL: baseURL,
             headers: {

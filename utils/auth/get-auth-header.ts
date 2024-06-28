@@ -1,6 +1,11 @@
+import Cookies from 'js-cookie';
+
 export const getAuthHeader = () => {
-    const token = localStorage.getItem("token");
-    return {
-        Authorization: `Bearer ${token}`,
+    let token = Cookies.get('token');
+    if (token) {
+        token = token.replace(/"/g, '');
     }
-}
+    return {
+        Authorization: `Bearer ${token || ''}`
+    };
+};

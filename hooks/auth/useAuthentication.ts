@@ -20,7 +20,7 @@ export const useAuthentication = () => {
       const user = await authService.login(email, password);
       if (user && user.token) {
         Cookies.set('currentUser', JSON.stringify(user));
-        localStorage.setItem('token', user.token);
+        Cookies.set('token', user.token);
         console.log("new token", user.token)
         router.push('/');
       }
@@ -52,7 +52,7 @@ export const useAuthentication = () => {
 
   const logout = () => {
     Cookies.remove('currentUser');
-    localStorage.removeItem('token');
+    Cookies.remove('token');
   };
 
   return { login, register, logout, loading, error };

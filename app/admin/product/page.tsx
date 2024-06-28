@@ -1,6 +1,5 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useFetchProducts } from '@/hooks/product/useFetchProducts';
 import { MdModeEdit, MdDelete } from "react-icons/md";
@@ -83,9 +82,9 @@ const Page = () => {
                                     <td className="px-4 py-2">{product.description}</td>
                                     <td className="px-4 py-2">{product.price}</td>
                                     <td className="px-4 py-2">{product.stock}</td>
-                                    <td className="px-4 py-2">{product.discount}</td>
+                                    <td className="px-4 py-2">{product.discount}%</td>
                                     <td className="px-4 py-2">
-                                        {product.imageurls?.join(", ")}
+                                        {product.images?.map((image: { imageid: string, img:string }) => image.img).join(", ")}
                                     </td>
                                     <td className="px-4 py-2">{new Date(product.createdat).toLocaleDateString()}</td>
                                     <td className="px-4 py-2">{product.deletedat ? new Date(product.deletedat).toLocaleDateString() : 'N/A'}</td>
@@ -95,7 +94,7 @@ const Page = () => {
                                         {product.keywords?.join(", ")}
                                     </td>
                                     <td className="px-4 py-2">
-                                        {product.categories?.join(", ")}
+                                        {product.categories?.map((category: { category: any; }) => category.category).join(", ")}
                                     </td>
                                     <td className="px-4 py-2">{product.reviewscount}</td>
                                     <td className="px-4 py-2">{product.rating}</td>

@@ -2,16 +2,25 @@
 export interface Product {
     productid: string;
     name: string;
-    imageurls?: string[];
-    description?: string;
+    images:{
+        imageid: string;
+        img: string;
+    }[]
+    categories:{
+        categoryid: string;
+        category: string;
+    }[]
+    description: string;
     price: number;
     stock: number;
     rating: number;
     reviewscount?: number;
-    keywords?: string[];
+    keywords: string[];
     discount?: number;
-    createdat: Date;
+    createdat?: Date;
     deletedat?: Date;
     lastmodifiedby?: string;
     lastmodifiedat?: Date;
 }
+
+

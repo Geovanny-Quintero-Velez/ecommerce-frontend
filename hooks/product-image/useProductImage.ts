@@ -35,6 +35,6 @@ export const useFetchProductImage = () => {
         }
     }
 
-    return { updateProductImage ,createProductImage, loading, error };
+    return { updateProductImage, createProductImage, loading, error };
     
 }

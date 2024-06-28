@@ -35,5 +35,33 @@ export function useFetchProducts() {
         }
     }
 
-    return { createProduct, loading, error, fetchProducts };
+    const updateProduct = async (product: Product) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const updatedProduct = await productService.updateProduct(product);
+            return updatedProduct as Product;
+        } catch (err: any) {
+            setError(err.message || 'Failed to update product');
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const fetchProductById = async (productId: string) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const product = await productService.fetchProductById(productId);
+            return product as Product;
+        } catch (err: any) {
+            setError(err.message || 'Failed to fetch product');
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return { fetchProductById, updateProduct, createProduct, loading, error, fetchProducts };
 }

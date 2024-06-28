@@ -45,7 +45,7 @@ export class ProductService {
     return images;
   }
 
-  sampleProducts: Product[] = [
+  sampleProducts: any[] = [
     {
       productid: "1",
       name: "Gourmet Delight",
@@ -161,7 +161,36 @@ export class ProductService {
         }
     }
   }
-  
+
+  public async fetchProductById(productId: string): Promise<Product | undefined> {
+    try{
+      const response = await this.axios.get(`${this.axios.defaults.baseURL}/product/allinfo/${productId}`);
+      console.log(".........",response.data)
+      return response.data;
+    }catch (error: any) {
+        if (error.response) {
+          const errorMessage = error.response.data.message;
+          throw new Error(errorMessage);
+        } else {
+            throw new Error('An unexpected error occurred while fetching the product');
+        }
+    }
+  }
+
+  public async updateProduct(product: Product): Promise<Product | undefined> {
+    try{
+      const response = await this.axios.patch(`${this.axios.defaults.baseURL}/product/${product.productid}`, product);
+      return response.data;
+    }catch (error: any) {
+        if (error.response) {
+          const errorMessage = error.response.data.message;
+          throw new Error(errorMessage);
+        } else {
+            throw new Error('An unexpected error occurred while updating the product');
+        }
+    }
+  }  
+
   public async getProducts(): Promise<Product[]> {
       return this.sampleProducts;
   }

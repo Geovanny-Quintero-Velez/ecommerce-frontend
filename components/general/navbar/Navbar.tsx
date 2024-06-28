@@ -11,7 +11,8 @@ import NavbarSecondaryItem from "./NavbarSecondaryItem";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { IoHomeOutline, IoHome, IoCart, IoCartOutline, IoHeart, IoHeartOutline } from "react-icons/io5";
-import { RiAdminLine, RiAdminFill } from "react-icons/ri";
+import { RiAdminFill } from "react-icons/ri";
+import { MdOutlineAdminPanelSettings as GrUserAdmin } from "react-icons/md";
 import { useAuth } from '@/context/UserContext';
 import { User } from '@/interfaces/user/user';
 import { useAuthentication } from '@/hooks/auth/useAuthentication';
@@ -123,7 +124,7 @@ function Navbar( {customSection}: Props ) {
               ))}
               {
                 user && user.role === 'admin' ? (
-                  <NavbarPrimaryItem path='/admin' title='Admin' defaultIcon={<RiAdminLine className='text-3xl'/>} selectedIcon={<RiAdminFill className='text-3xl'/>}/>
+                  <NavbarPrimaryItem path='/admin' title='Admin' defaultIcon={<GrUserAdmin className='text-3xl'/>} selectedIcon={<RiAdminFill className='text-3xl'/>}/>
                 ):(null)
               }
           </div>

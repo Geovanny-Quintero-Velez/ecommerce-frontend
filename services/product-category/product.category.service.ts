@@ -38,6 +38,7 @@ export class ProductCategoryService {
     }
     
     private async deleteProductCategory(productCategory: ProductCategory): Promise<boolean> {
+        console.log("delete", productCategory)
         try{
             await this.axios.delete(`${this.axios.defaults.baseURL}/product-category/${productCategory.categoryid}/${productCategory.productid}`)
             return true;
@@ -52,6 +53,7 @@ export class ProductCategoryService {
     }
 
     public async updateProductCategory(productCategoryToDelete: ProductCategory, productCategoryToCreate: ProductCategory): Promise<ProductCategory> {
+        console.log("update (to del)", productCategoryToDelete, "update (to cre)" ,productCategoryToCreate)
         try{
             await this.deleteProductCategory(productCategoryToDelete);
             const createResponse = await this.createProductCategory(productCategoryToCreate);
