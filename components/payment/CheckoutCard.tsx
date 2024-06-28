@@ -93,7 +93,7 @@ const CheckoutCard = ({ cart }: Props) => {
     try {
       const response = await axios.post(`${baseURL}/payment`, paymentData, {
         headers: {
-          'Authorization': `Bearer ${Cookies.get('token')}`,
+          'Authorization': `Bearer ${Cookies.get('token')}`, 
         }
       });
 
