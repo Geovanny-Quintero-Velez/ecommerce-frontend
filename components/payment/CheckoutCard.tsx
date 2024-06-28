@@ -5,6 +5,7 @@ import { useCart } from "@/context/CartContext";
 import PaymentProduct from "./PaymentProduct";
 import CheckoutCardSkeleton from "../cart/skeleton/CheckoutCardSkeleton";
 import { CartProduct } from "@/interfaces/product/cart.product";
+import Link from "next/link";
 
 interface Props {
   cart: CartProduct[];
@@ -46,9 +47,9 @@ const CheckoutCard = ( {cart}: Props) => {
         <div>COP {(totalPrice + serviceFee).toFixed(2)}</div>
       </div>
       <div className="flex w-full justify-center mt-4">
-        <button className="p-2 rounded-lg flex justify-center items-center backgroundWarning w-full mr-2 text-xl font-bold">
+        <Link href={"http://localhost:3000/delivery"} className="p-2 rounded-lg flex justify-center items-center backgroundWarning w-full mr-2 text-xl font-bold">
           Pay now
-        </button>
+        </Link>
       </div>
       <div className="text-center mt-4">
         <p>
