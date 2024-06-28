@@ -12,6 +12,11 @@ const PaymentProduct = ({
     price,
     discountPrice,
   } = product;
+
+  const validPrice = typeof price === 'number' ? price : 0;
+  const validDiscountPrice = typeof discountPrice === 'number' ? discountPrice : null;
+
+
   return (
     <div className="flex backgroundBackground rounded-lg p-4 ">
       <div className="flex w-1/2 text-lg font-medium text-Standard justify-start">{name}</div>
@@ -22,7 +27,7 @@ const PaymentProduct = ({
           </span>
         ) : (
           <span className="text-lg font-bold text-Standard">
-            COP {price.toFixed(2)}
+            COP {validPrice.toFixed(2)}
           </span>
         )}
       </div>
