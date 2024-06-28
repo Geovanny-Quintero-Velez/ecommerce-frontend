@@ -9,8 +9,6 @@ import { useAuth }  from "@/context/UserContext";
 import { useCart } from "@/context/CartContext";
 
 export default function HomePage() {
-    const { fetchProducts, loading, error } = useFetchProducts();
-    const [products, setProducts] = useState<any | null>(null);
     const { fetchCart } = useCart();
     const { currentUser } = useAuth();
 
@@ -18,14 +16,29 @@ export default function HomePage() {
         fetchCart();
       }, [currentUser]); 
 
-    useEffect(() => {
-        async function fetchProductData() {
-            const fetchedProducts = await fetchProducts();
-            setProducts(fetchedProducts);
-        }
-
-        fetchProductData();
-    }, []);
+      const [products, setProducts] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
+  
+      useEffect(() => {
+          const fetchProducts = async () => {
+              try {
+                  setLoading(true);
+                  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/product`);
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  const data = await response.json();
+                  setProducts(data);
+              } catch (err:any) {
+                  setError(err.message);
+              } finally {
+                  setLoading(false);
+              }
+          };
+  
+          fetchProducts();
+      }, []);
 
 
 
