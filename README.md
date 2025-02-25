@@ -1,7 +1,3 @@
-Aquí tienes una versión mejorada del README para tu proyecto en GitHub, incorporando la problemática, la propuesta de solución y las características del eCommerce:  
-
----
-
 # 🥗 FoodStore - Tu Comida Saludable a Domicilio  
 
 **FoodStore** es una plataforma de comercio electrónico desarrollada con **Next.js**, diseñada para personas con un estilo de vida ocupado que desean mantener una dieta saludable sin sacrificar tiempo. Permite seleccionar fácilmente comidas listas para consumir, preservadas adecuadamente y entregadas a domicilio.  
