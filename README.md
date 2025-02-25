@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Aquí tienes una versión mejorada del README para tu proyecto en GitHub, incorporando la problemática, la propuesta de solución y las características del eCommerce:  
 
-## Getting Started
+---
 
-First, run the development server:
+# 🥗 FoodStore - Tu Comida Saludable a Domicilio  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**FoodStore** es una plataforma de comercio electrónico desarrollada con **Next.js**, diseñada para personas con un estilo de vida ocupado que desean mantener una dieta saludable sin sacrificar tiempo. Permite seleccionar fácilmente comidas listas para consumir, preservadas adecuadamente y entregadas a domicilio.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚨 Problema  
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Las personas con un nivel socioeconómico **medio-alto**, que tienen una agenda ocupada, no logran mantener una dieta saludable. **Suelen pedir comida rápida a domicilio**, lo que impacta negativamente su bienestar.  
 
-## Learn More
+## 💡 Solución  
 
-To learn more about Next.js, take a look at the following resources:
+**FoodStore** ofrece una plataforma eficiente para seleccionar comidas saludables **de forma rápida y efectiva**, permitiendo recibirlas a domicilio en empaques adecuados para su conservación.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🚀 Características  
 
-## Deploy on Vercel
+✅ **Panel de Administración**  
+- CRUD completo para usuarios, productos, órdenes y categorías.  
+- Paginación en listas para una gestión eficiente.  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✅ **Experiencia de Compra**  
+- **Catálogo de productos** con búsqueda y filtrado.  
+- **Carrito de compras** persistente en sesión.  
+- **Detalle de producto** con información nutricional y opciones de personalización.  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+✅ **Gestión de Pedidos**  
+- Flujo de compra intuitivo.  
+- Procesamiento de pedidos con confirmación automática.  
+
