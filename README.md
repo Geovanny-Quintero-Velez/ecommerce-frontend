@@ -29,3 +29,43 @@ Las personas con un nivel socioeconómico **medio-alto**, que tienen una agenda 
 - Flujo de compra intuitivo.  
 - Procesamiento de pedidos con confirmación automática.  
 
+## 🛠️ Tecnologías
+- **Next.js** - Framework de React optimizado para SEO y rendimiento.
+- **Tailwind CSS** - Para un diseño moderno y adaptable.
+- **TypeScript** - Tipado estático para mayor seguridad y mantenimiento.
+
+## 📂 Configuración del Proyecto
+
+### 1️⃣ Clonar el repositorio  
+```bash
+git clone https://github.com/Geovanny-Quintero-Velez/ecommerce-frontend.git
+cd ecommerce-frontend
+```
+
+### 2️⃣ Configurar variables de entorno
+Crea un archivo `.env.local` en la raíz del proyecto y agrega:
+```env
+NEXT_PUBLIC_BASE_URL=http://localhost:8000
+```
+⚠️ **IMPORTANTE:** Asegúrate de que el backend esté ejecutándose en el puerto 8000 o cambia la URL según corresponda.
+
+### 3️⃣ Instalar dependencias
+```bash
+npm install
+```
+
+### 4️⃣ Ejecutar la aplicación
+```bash
+npm run dev
+```
+La aplicación estará disponible en `http://localhost:3000`
+
+## ⚡ Requisitos para el Funcionamiento
+Para que la plataforma funcione correctamente, **es necesario que el backend esté en ejecución**. Puedes encontrar el backend en el siguiente repositorio:
+
+🔗 **Repositorio Backend:** [ecommerce-backend](https://github.com/Geovanny-Quintero-Velez/ecommerce-backend.git)
+
+Sigue las instrucciones de instalación en ese repositorio para ejecutarlo.
+
+
+
