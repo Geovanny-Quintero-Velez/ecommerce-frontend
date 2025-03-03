@@ -67,5 +67,9 @@ Para que la plataforma funcione correctamente, **es necesario que el backend est
 
 Sigue las instrucciones de instalación en ese repositorio para ejecutarlo.
 
+## 🎨 Diseño y Documentación
+Para conocer el diseño visual del proyecto, puedes acceder al siguiente enlace de **Figma**:
+🔗 [Diseño en Figma](https://www.figma.com/design/iU8ZgBSa4q6IBjwrmbCkWm/Mockups?node-id=0-1&t=W1zDtGOyCXyNKyqB-1)
 
-
+Además, puedes revisar la documentación detallada del proyecto y sus artefactos en el siguiente documento:
+🔗 [Informe del Proyecto](https://docs.google.com/document/d/19vmyPiER2yokJlXZWlHlCjqEgYh51uStDw3VmPUoHIY/edit?usp=sharing)
